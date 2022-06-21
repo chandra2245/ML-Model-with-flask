@@ -1,0 +1,77 @@
+
+
+
+/* Make the image responsive */
+
+
+/* Style the search button and place it in the middle of the container/image */
+input[type=text] {
+ position: absolute; 
+ width: 66%;
+   top: 0.7%;
+  left: 19%;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: white;
+  background-image: {{url_for('static',filename='images/searchicon1.PNG')}};
+background-size: 30px 30px;
+  background-position: 9px 7.5px; 
+  background-repeat: no-repeat;
+  padding: 12px 20px 12px 40px;
+  -webkit-transition: width 0.4s ease-in-out;
+  transition: width 0.4s ease-in-out;
+  cursor: pointer;
+}
+
+
+.button{
+  position: absolute; 
+  background-color: #4CAF50; /* Green */
+  top: 0.5%;
+  left: 85%;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.collapsible {
+  background-color: #777;
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+.active, .collapsible:hover {
+  background-color: #777;
+}
+
+.collapsible:after {
+  content: '\002B';
+  color: green;
+  font-weight: bold;
+  float: right;
+  margin-left: 5px;
+}
+
+.active:after {
+  content: '\2212';
+}
+
+.content {
+  padding: 0 18px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  background-color: #f1f1f1;
+}

@@ -1,0 +1,47 @@
+.outer{
+  width: 100%	
+}
+
+.outer > * {
+  display:inline-block;
+  margin: auto;
+  text-align: center;
+}
+
+.inner{
+  width: 24%;
+}
+
+.inner > * {
+	margin: auto;
+}	
+
+
+table {
+  border-collapse: collapse;
+  font-size: 74%;	
+  width:80%;
+}
+
+th, td {
+  text-align: center;
+  padding: 5px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+tr:hover {background-color:#D0EDDE;}
+
+th {
+  background-color: #3cb371;
+  color: white;
+}
+
+
+#divtbl5 {
+	
+width:90%;	
+margin: auto;
+}
+	
+

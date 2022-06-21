@@ -1,0 +1,351 @@
+{% extends "layout.html" %}
+{% block content %}
+<html>
+<head>
+<!--<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">-->
+<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/bootstrap.min.3.3.6.css')}}">
+
+<!--<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css">-->
+<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/bootstrap-datetimepicker.min.css')}}">
+
+<!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>-->
+<script src="{{ url_for('static', filename='js/jquery-3.3.1.slim.min.js') }}"></script>
+
+<!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js"></script>-->
+
+<!--<script src="https://d3js.org/d3.v4.min.js"></script>-->
+<script src="{{ url_for('static', filename='js/d3.v4.min.js') }}"></script>
+
+<!--<script src="https://d3js.org/queue.v1.min.js"></script>-->
+<script src="{{ url_for('static', filename='js/queue.v1.min.js') }}"></script>
+
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.24.0/d3-legend.js"></script>-->
+<script src="{{ url_for('static', filename='js/d3-legend.js') }}"></script>
+
+<!--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
+<script type="text/javascript" src="{{ url_for('static', filename='js/jquery.js') }}"></script> 
+
+<!--<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment.min.js"></script>-->
+<script type="text/javascript" src="{{ url_for('static', filename='js/moment.min.js') }}"></script>
+
+<!--<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>-->
+<script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.3.3.6.js') }}"></script>
+
+<!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>-->
+<script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap-datetimepicker.min.js') }}"></script>
+
+<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/territoryanalysis.css')}}">
+<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/button.css')}}">	
+<script type="text/javascript">
+    $(function () {
+        $('#datetimepicker6').datetimepicker();
+        $('#datetimepicker7').datetimepicker({
+            useCurrent: false //Important! See issue #1075
+			
+        });
+        $("#datetimepicker6").on("dp.change", function (e) {
+            $('#datetimepicker7').data("DateTimePicker").minDate(e.date);
+        });
+        $("#datetimepicker7").on("dp.change", function (e) {
+            $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
+        });
+    });
+</script>
+<script type=text/javascript>
+        var piechartDataUrl_v2;
+        var barchartDataUrl_v2 ; 
+		var paretochartDataUrl ;
+        var DecileFilter;
+
+
+$(document).ready(function(){
+$("#update_button").click(function(){
+				$.getJSON('/territoryanalysis_filter', {
+				  Rep_Names:$("#Rep_Names").val(),
+				  Initial_date: $("#Initial_date").val(),
+				  Final_date: $("#Final_date").val(),
+				  options: $("input[name=options]:checked").val(),
+				  
+
+				  
+				}, function(data) {
+				    $("#actual_sales").text(data.actual_sales);
+					$("#potential_value").text(data.potential_value);
+					$("#market_share").text(data.market_share);
+					$("#injection_potential").text(data.injection_potential);
+					$("#pal").text(data.pal);
+                    $("#tooltipparetoChart").remove();
+                    $("#barChart").remove();
+					
+					
+				        piechartDataUrl_v2 = "{{ url_for('territory.get_piechart_data_v2') }}";
+                        barchartDataUrl_v2 = "{{ url_for('territory.get_barchart_data_v2') }}";
+						paretochartDataUrl = "{{ url_for('territory.get_pareto_data') }}";
+						callslinechart = "{{ url_for('territory.get_timeseries_calls_data') }}";
+						callsstackchart = "{{ url_for('territory.get_timeseries_callcat_data') }}";
+						decilebarchart = "{{ url_for('territory.get_bar_decile_data') }}";
+						$("#pieChart").empty();
+						$("#barChart").empty();
+						$("#CallsLine").empty();
+						$("#CallsStack").empty();
+						$("#decileBar").empty();
+						$("#tooltipCallsStack").remove();
+						$("#tooltipCallsLine").remove();
+						$("#TargetDefinitionBoxes").css("display", "block");
+						$('#paretoMain').attr('style','diplay:block');
+						$("#paretoChart").empty();
+                        $("#CallsChart").css("display", "block");
+						$.getScript("{{ url_for('static', filename='js/TerritoryAnalysisPieChart.js') }}");
+						$.getScript("{{ url_for('static', filename='js/TerritoryAnalysisBarChart.js') }}");
+						$.getScript("{{ url_for('static', filename='js/TerritoryAnalysisUpdateBarChart.js') }}");
+						$.getScript("{{ url_for('static', filename='js/TerritoryAnalysisParetoChart.js') }}");
+			            $.getScript("{{ url_for('static', filename='js/TerritoryAnalysisCallsLineChart.js') }}");
+						$.getScript("{{ url_for('static', filename='js/TerritoryAnalysisCallsStackChart.js') }}");
+						$.getScript("{{ url_for('static', filename='js/TerritoryAnalysisDecileBar.js') }}");
+						$.getScript("{{ url_for('static', filename='js/TerritoryAnalysismain.js') }}");
+
+
+				});
+				return false;
+
+
+
+
+
+}); 
+$("#call_Division").change(function(){
+        DecileFilter= $("#call_Division").val();
+		 decileData = "{{ url_for('territory.get_timeseries_callcat_data') }}";
+		 $("#CallsStack").empty();
+         $("#tooltipCallsStack").remove();
+		 $.getScript("{{ url_for('static', filename='js/TerritoryAnalysisDecileBar.js') }}");
+		 $.getScript("{{ url_for('static', filename='js/TerritoryAnalysisCallsmain.js') }}");
+
+   
+
+
+
+});
+
+$("#Pareto_Division").change(function(){
+        $.getJSON('/Pareto_Division', {
+				  Filter: $("#Pareto_Division").val(),
+         }, function(data) {
+		 paretochartDataUrl = "{{ url_for('territory.get_pareto_data') }}";
+		 $("#paretoChart").empty();
+         $("#tooltipparetoChart").remove();
+		 $.getScript("{{ url_for('static', filename='js/TerritoryAnalysisParetoChart.js') }}");
+		 $.getScript("{{ url_for('static', filename='js/TerritoryAnalysisParetoMain.js') }}");
+
+           });
+		   return false;
+
+
+
+});
+
+});
+</script>
+</head>
+<body>
+  <div class="page-header">
+    <h2>Territory Analysis</h2>      
+  </div>
+  {% if current_user.user_type=='admin'%}
+<div style="width:90%;">
+   <div class="row">
+
+    <div class='col-md-2'>
+         <select name="Rep_Names" id="Rep_Names" class="btn btn-primary">
+			  <option value="">Select Sales Rep</option>  
+		      {% for rep in reps	%}
+				<option value="{{rep}}">{{rep}}</option>
+              {% endfor %}
+              <option value="All">All</option>
+        </select>
+	</div>
+ 
+  <div class='col-md-2'>
+        <div class="form-group">
+            <div class='input-group date' id='datetimepicker6'>
+                <input type='text' class="form-control" id="Initial_date"/>
+                <span class="input-group-addon btn btn-primary">Start Date
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class='col-md-2'>
+        <div class="form-group">
+            <div class='input-group date' id='datetimepicker7'>
+                <input type='text' class="form-control" id="Final_date"/>
+                <span class="input-group-addon btn btn-primary">End Date
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class='col-md-3'>
+     <div class="btn-group btn-group-toggle" data-toggle="buttons">
+      <label class="btn btn-primary active">
+          <input type="radio" name="options" id="option1" value="Account"  checked>Accounts
+      </label>
+      <label class="btn btn-primary">
+         <input type="radio" name="options" id="option2" value="Health_group" >Health Groups
+      </label>
+     </div>
+	 </div>
+	 <div class='col-md-1'>
+     <button type="button" id="update_button" class="btn btn-primary">Update</button>
+	 </div>
+   </div>
+   </div> 
+   {% endif %}  
+  {% if current_user.user_type=='sales_rep'%}
+<div class='container'>
+   <div class="row">
+
+  <div class='col-md-3'>
+        <div class="form-group">
+            <div class='input-group date' id='datetimepicker6'>
+                <input type='text' class="form-control" id="Initial_date"/>
+                <span class="input-group-addon btn btn-primary">Start Date
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class='col-md-3'>
+        <div class="form-group">
+            <div class='input-group date' id='datetimepicker7'>
+                <input type='text' class="form-control" id="Final_date"/>
+                <span class="input-group-addon btn btn-primary">End Date
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class='col-md-4'>
+     <div class="btn-group btn-group-toggle" data-toggle="buttons">
+      <label class="btn btn-primary active">
+          <input type="radio" name="options" id="option1" value="Account"  checked>Accounts
+      </label>
+      <label class="btn btn-primary">
+         <input type="radio" name="options" id="option2" value="Health_group" >Health Groups
+      </label>
+     </div>
+	 </div>
+	 <div class='col-md-2'>
+     <button type="button" id="update_button" class="btn btn-primary">Update</button>
+	 </div>
+   </div>
+   </div> 
+   {% endif %}  
+<br>
+<div id="TargetDefinitionBoxes" class='TOuter' style="display: none;">
+   	<div class='TInner' id="actual_sales_c">
+	  <h4>Actual Sales&nbsp;
+	  <div class="toolstips"><img src="{{url_for('static',filename='images/info-white.png')}}"height="18" width="18"/>
+      <span class="tooltiptexts">The text box displays the average sales of Reps at the Territory Level</span>
+      </div>
+	  </h4>	 
+      <span class="spInner" id="actual_sales"></span>
+	</div>
+    <div class='TInner' id="potential_value_c">
+	  <h4>Total Potential Value&nbsp;
+	  <div class="toolstips"><img src="{{url_for('static',filename='images/info-white.png')}}"height="18" width="18"/>
+      <span class="tooltiptexts">This text box shows the average total potential value across all of the HCPs</span>
+      </div>
+	  </h4>	
+	  <span class="spInner" id="potential_value"></span>
+	</div>
+    <div class='TInner' id="market_share_c">
+	  <h4>Market Share&nbsp;
+	  <div class="toolstips"><img src="{{url_for('static',filename='images/info-white.png')}}"height="18" width="18"/>
+      <span class="tooltiptexts">The text box shows the portion of market controlled by our drug</span>
+      </div>
+	  </h4>		  
+	  <span class="spInner" id="market_share"></span>
+	</div>
+	<div class='TInner' id="injection_potential_c">
+	  <h4>Injection Potential&nbsp;
+	  <div class="toolstips"><img src="{{url_for('static',filename='images/info-white.png')}}"height="18" width="18"/>
+      <span class="tooltiptexts">Penetrating factor of an HCP</span>
+      </div>
+	  </h4>		  
+	  <span class="spInner" id="injection_potential"></span>
+	</div>
+	<div class='TInner' id="pal_c">
+	  <h4>Value Perception&nbsp;
+	  <div class="toolstips"><img src="{{url_for('static',filename='images/info-white.png')}}"height="18" width="18"/>
+      <span class="tooltiptexts">How much value our drug brings to that HCP</span>
+      </div>
+	  </h4>		  
+	  <span class="spInner" id="pal"></span>
+	</div>
+</div>
+<br><br>
+<div class="row" id="CallsChart" style="display:none">
+    <div class='col-md-3'><h4>STD Calls&nbsp;
+	<div class="toolstips"><img src="{{url_for('static',filename='images/info-black.png')}}"height="18" width="18"/>
+      <span class="tooltiptexts">The graph displays the total calls from Semester start to current date at territory level for different categorical groups</span>
+      </div>
+	  </h4>	
+	</div>
+   <div class='col-md-3'><h4>Calls Trend&nbsp;
+	<div class="toolstips"><img src="{{url_for('static',filename='images/info-black.png')}}"height="18" width="18"/>
+      <span class="tooltiptexts">The graph displays the total calls made over the particular span of time</span>
+      </div>
+	  </h4>	
+	</div>   
+   
+   
+     <div class='col-md-5'> 
+       <span class="btn btn-primary">Select Call Dimension&nbsp;
+	   <a href="#" data-toggle="tooltip" title="The graph displays the details of Total calls over particular period of time, you can drill down to see the information at different categories by using drop down"><img src="{{url_for('static',filename='images/info-white.png')}}"height="18" width="18"/></a></span>
+       <select name="call_Division" id="call_Division" class="btn btn-primary">
+          <option value="Decile">Decile</option>
+          <option value="Call Category">Call Category</option>
+          <option value="Brand Category">Call Type</option>
+        </select>
+	</div> 
+</div>
+<br>
+<div class="row">
+   <div class='col-md-3'id="decileBar"></div>
+   <div class='col-md-4'id="CallsLine"></div>
+   <div class='col-md-4'id="CallsStack"></div>
+</div>
+<br><br>
+<div id="paretoMain" class="row" style="display:none">
+    <div class='col-md-3'><h4>Cluster Distribution&nbsp;
+		<div class="toolstips"><img src="{{url_for('static',filename='images/info-black.png')}}"height="18" width="18"/>
+      <span class="tooltiptexts">The chart displays in what proportion each cluster is distributed among territories, you can hover over each cluster to get information regarding which account lies in each cluster</span>
+      </div>
+	  </h4>	
+	</div>  
+	
+	
+	
+	 <div class='col-md-2'> 
+       <span class="btn btn-primary">Select Coverage</span>
+       <select name="Pareto_Division" id="Pareto_Division" class="btn btn-primary">
+          <option value="75">Top 75%</option>
+          <option value="50">Top 50%</option>
+          <option value="25">Top 25%</option>
+          <option value="All">All</option>
+		</select>
+	</div>
+	<div class='col-md-3'> 
+	<span><h4>Pareto Analysis of HCP/ Accounts&nbsp;
+	<div class="toolstips"><img src="{{url_for('static',filename='images/info-black.png')}}"height="18" width="18"/>
+      <span class="tooltiptexts">A Pareto chart is a type of chart that contains both bars and a line graph, where individual values are represented in descending order by bars, and the cumulative total is represented by the line. This graph shows how particular account is performing in the territory, you can further drill down to see the top accounts using the drop down</span>
+      </div>
+	  </h4>	
+	</div>  
+</div>
+
+<div class="row">
+   <div class='col-md-3' id="pieChart"></div> 
+   <div class='col-md-6'id="paretoChart"></div>
+</div>
+
+</body>
+</html>
+{% endblock content %}

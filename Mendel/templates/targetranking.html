@@ -1,0 +1,115 @@
+{% extends "layout.html" %}
+{% block content %}
+<html>
+<head>
+<!--<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">-->
+<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/bootstrap.min.3.3.6.css')}}">
+
+<!--<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css">-->
+<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/bootstrap-datetimepicker.min.css')}}">
+
+<!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>-->
+<script src="{{ url_for('static', filename='js/jquery-3.3.1.slim.min.js') }}"></script>
+
+<!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js"></script>-->
+
+
+<!--<script src="https://d3js.org/d3.v4.min.js"></script>-->
+<script src="{{ url_for('static', filename='js/d3.v4.min.js') }}"></script>
+
+<!--<script src="https://d3js.org/queue.v1.min.js"></script>-->
+<script src="{{ url_for('static', filename='js/queue.v1.min.js') }}"></script>
+
+<!--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
+<script type="text/javascript" src="{{ url_for('static', filename='js/jquery.js') }}"></script> 
+
+<!--<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment.min.js"></script>-->
+<script type="text/javascript" src="{{ url_for('static', filename='js/moment.min.js') }}"></script>
+
+<!--<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>-->
+<script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.3.3.6.js') }}"></script>
+
+<!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>-->
+<script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap-datetimepicker.min.js') }}"></script>
+
+<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/button.css')}}">
+<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/targetranking.css')}}">
+<script type=text/javascript>
+			$(function() {
+			  $("#update_button").click(function(){
+                   scatterchartDataUrl = "{{ url_for('ranking.scatterplot_data')  }}";
+                   $("#ScatterPlot").empty();
+					$.getScript("{{ url_for('static', filename='js/ScatterPlot.js') }}");
+					$.getScript("{{ url_for('static', filename='js/ranking_main.js') }}");
+              });
+			  
+			});
+</script>	
+
+
+</head>
+<body>
+<div class="page-header">
+  <h2>Target Ranking</h2>      
+</div> 
+{% if current_user.user_type=='admin'%}
+<div class="container">
+   <div class="row">
+
+    <div class='col-md-3'>
+         <select name="Rep_Names" id="Rep_Names" class="btn btn-primary">
+			  <option value="">Select Sales Rep</option>  
+		      {% for rep in reps	%}
+				<option value="{{rep}}">{{rep}}</option>
+              {% endfor %}
+              <option value="All">All</option>
+        </select>
+	</div>
+      <div class='col-md-3' id="ScatterPlotHeader">
+         <label class="checkboxcontainer">Accounts
+            <input type="checkbox" id="accounts" checked="checked">
+            <span class="checkmark"></span>
+          </label>
+      </div>
+      <div class='col-md-3' id="ScatterPlotHeader2">
+         <label class="checkboxcontainer">Health Groups  
+            <input type="checkbox" id="health_groups" >
+            <span class="checkmark"></span>
+          </label>
+      </div>
+	 <div class='col-md-1'>
+     <button type="button" id="update_button" class="btn btn-primary">Update</button>
+	 </div>
+   </div>
+   </div> 
+   {% endif %}  
+{% if current_user.user_type=='sales_rep'%}
+<div class='container'>
+   <div class="row">
+
+  <div class='col-md-4' id="ScatterPlotHeader">
+         <label class="checkboxcontainer">Accounts
+            <input type="checkbox" id="accounts" checked="checked">
+            <span class="checkmark"></span>
+          </label>
+      </div>
+      <div class='col-md-4' id="ScatterPlotHeader2">
+         <label class="checkboxcontainer">Health Groups  
+            <input type="checkbox" id="health_groups" >
+            <span class="checkmark"></span>
+          </label>
+      </div>
+	 <div class='col-md-1'>
+     <button type="button" id="update_button" class="btn btn-primary">Update</button>
+	 </div>
+   </div>
+   </div> 
+   {% endif %} 
+ <br>   
+ <div class="container">  
+   <div class="row">
+      <div class='col-md-12' id="ScatterPlot"></div>
+   </div>
+</div>           
+</body>
+{% endblock content %}

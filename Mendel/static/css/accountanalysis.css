@@ -1,0 +1,94 @@
+
+svg {
+    font: 14px sans-serif;
+  }
+  .bar rect {
+    shape-rendering: crispEdges;
+  }
+  .axis path, .axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+  }
+  .line {
+    fill: none;
+    stroke-width: 3.0px;
+  }
+  
+  
+  
+path.arc {
+opacity: 1.0;
+transition: opacity 0.5s;
+}
+
+path.arc:hover {
+  opacity: 0.6;
+}
+
+.axis line, .axis circle  {
+  stroke: #cccccc;
+  stroke-width: 1px
+}
+
+.axis circle {
+  fill: none;
+}
+
+.r.axis text {
+  text-anchor: end
+}
+
+.tooltips {
+  position: absolute;
+  display: none;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 3px;
+  box-shadow: -3px 3px 15px #888;
+  color: white;
+  padding: 6px;
+}  
+#chartHeader {
+width: 100%;
+}
+
+ #chartHeader > * {
+  display:inline-block;
+  margin: auto;
+  text-align: center;
+} 
+
+ #chartRow1 > * {
+  display:inline-block;
+  margin: auto;
+  text-align: center;
+} 
+
+.TOuter {
+  width: 100%;
+}
+
+.TOuter> *{
+  display:inline-block;
+  margin: auto;
+  text-align: center;
+}
+
+.TInner {
+ width: 14%;
+ height: 150px;
+ color: #ffffff;
+}
+
+.spInner{
+  font-size: 50px;
+}
+
+#Account_Names{
+width:75%; 
+}
+
+.axisCSS {
+fill: none;
+stroke-width: 2;
+}

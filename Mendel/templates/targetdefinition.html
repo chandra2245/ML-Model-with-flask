@@ -1,0 +1,453 @@
+{% extends "layout.html" %}
+{% block content %}
+<html>
+<head>
+<!--<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">-->
+<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/bootstrap.min.3.3.6.css')}}">
+
+<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/button.css')}}">	
+<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/targetdefinition.css')}}">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type=text/javascript>
+			$(function() {
+			  $('#useremail').bind('change', function() {
+				$.getJSON('/user_exist', {
+				  useremail: $("#useremail").val(),				  				  
+				}, function(data) {
+                  $("#user_text").html(data.output_text);
+
+				});
+				return false;
+			  });
+
+			  
+			});
+		</script>
+<SCRIPT language="javascript">
+     var t1size=2;
+	 var t2size=4;
+	 var t3size=3;
+	 var t4size=4;
+	 var t5size=2;
+	 
+	    function tablesize(){
+		 document.getElementById("table1_size").value=t1size;
+		 document.getElementById("table2_size").value=t2size;
+		 document.getElementById("table3_size").value=t3size;
+		 document.getElementById("table4_size").value=t4size;
+		 document.getElementById("table5_size").value=t5size;
+		  
+		
+		}
+	 
+		function addRowt1(tableID) {
+            t1size=t1size+1;
+			var table = document.getElementById(tableID);
+
+			var rowCount = table.rows.length;
+			var row = table.insertRow(rowCount);
+
+			var cell1 = row.insertCell(0);
+			var element1 = document.createElement("input");
+			element1.type = "checkbox";
+			element1.name="chkboxt1["+t1size+"]";
+			element1.id="chkboxt1["+t1size+"]";
+			cell1.appendChild(element1);
+
+			var cell2 = row.insertCell(1);
+			var element2 = document.createElement("input");
+			element2.type = "text";
+			element2.name = "txtboxt1c1["+t1size+"]";
+			element2.id="txtboxt1c1["+t1size+"]";
+			element2.required = true;
+			cell2.appendChild(element2);
+
+			var cell3 = row.insertCell(2);
+			var element3 = document.createElement("input");
+			element3.type = "text";
+			element3.name = "txtboxt1c2["+t1size+"]";
+			element3.id = "txtboxt1c2["+t1size+"]";
+			element3.required = true;
+			cell3.appendChild(element3);
+			
+			tablesize();
+
+		}
+		
+		function addRowt2(tableID) {
+		    t2size=t2size+1;
+            var table = document.getElementById(tableID);
+
+			var rowCount = table.rows.length;
+			var row = table.insertRow(rowCount);
+
+			var cell1 = row.insertCell(0);
+			var element1 = document.createElement("input");
+			element1.type = "checkbox";
+			element1.name="chkboxt2["+t2size+"]";
+			element1.id="chkboxt2["+t2size+"]";
+			cell1.appendChild(element1);
+
+			var cell2 = row.insertCell(1);
+			var element2 = document.createElement("input");
+			element2.type = "text";
+			element2.name = "txtboxt2c1["+t2size+"]";
+			element2.id="txtboxt2c1["+t2size+"]";
+			element2.value=t2size;
+			element2.required = true;
+			cell2.appendChild(element2);
+
+			var cell3 = row.insertCell(2);
+			var element3 = document.createElement("input");
+			element3.type = "text";
+			element3.name = "txtboxt2c2["+t2size+"]";
+			element3.id = "txtboxt2c2["+t2size+"]";
+			element3.required = true;
+			cell3.appendChild(element3);
+			
+			tablesize();
+
+		}
+		
+		function addRowt3(tableID) {
+            t3size=t3size+1;
+			
+			var table = document.getElementById(tableID);
+
+			var rowCount = table.rows.length;
+			var row = table.insertRow(rowCount);
+
+			var cell1 = row.insertCell(0);
+			var element1 = document.createElement("input");
+			element1.type = "checkbox";
+			element1.name="chkboxt3["+t3size+"]";
+			element1.id="chkboxt3["+t3size+"]";
+			cell1.appendChild(element1);
+
+			var cell2 = row.insertCell(1);
+			var element2 = document.createElement("input");
+			element2.type = "text";
+			element2.name = "txtboxt3c1["+t3size+"]";
+			element2.id="txtboxt3c1["+t3size+"]";
+			element2.required = true;
+			cell2.appendChild(element2);
+
+			var cell3 = row.insertCell(2);
+			var element3 = document.createElement("input");
+			element3.type = "text";
+			element3.name = "txtboxt3c2["+t3size+"]";
+			element3.id = "txtboxt3c2["+t3size+"]";
+			element3.required = true;
+			cell3.appendChild(element3);
+			
+			tablesize();
+
+		}
+		
+		function addRowt4(tableID) {
+            t4size=t4size+1;
+			
+			var table = document.getElementById(tableID);
+
+			var rowCount = table.rows.length;
+			var row = table.insertRow(rowCount);
+
+			var cell1 = row.insertCell(0);
+			var element1 = document.createElement("input");
+			element1.type = "checkbox";
+			element1.name="chkboxt4["+t4size+"]";
+			element1.id="chkboxt4["+t4size+"]";
+			cell1.appendChild(element1);
+
+			var cell2 = row.insertCell(1);
+			var element2 = document.createElement("input");
+			element2.type = "text";
+			element2.name = "txtboxt4c1["+t4size+"]";
+			element2.id="txtboxt4c1["+t4size+"]";
+			element2.required = true;
+			cell2.appendChild(element2);
+
+			var cell3 = row.insertCell(2);
+			var element3 = document.createElement("input");
+			element3.type = "text";
+			element3.name = "txtboxt4c2["+t4size+"]";
+			element3.id = "txtboxt4c2["+t4size+"]";
+			element3.required = true;
+			cell3.appendChild(element3);
+			
+			tablesize();
+
+		}
+
+		function deleteRow(tableID) {
+			try {
+			var table = document.getElementById(tableID);
+			var rowCount = table.rows.length;
+
+			for(var i=0; i<rowCount; i++) {
+				var row = table.rows[i];
+				var chkbox = row.cells[0].childNodes[0];
+				if(null != chkbox && true == chkbox.checked) {
+					table.deleteRow(i);
+					rowCount--;
+					i--;
+				}
+
+
+			}
+			}catch(e) {
+				alert(e);
+			}
+             tablesize();
+			}
+	function table_creation(){
+     
+	var divsave = document.getElementById("divsavebutton");
+	 
+	var div = document.getElementById("divtbl5");
+	var table = document.getElementById("dataTable5");
+	var header = table.createTHead();
+    var hrow = header.insertRow(0);
+    var cell = hrow.insertCell(0);
+    cell.innerHTML = "Select";
+	cell = hrow.insertCell(1);
+    cell.innerHTML = "Targeting Criteria";
+    for(i=1;i<=t4size;i++){
+	cell = hrow.insertCell(i+1);
+    cell.innerHTML = document.getElementById("txtboxt4c1["+i+"]").value;
+	}
+	cell = hrow.insertCell(t4size+2);
+    cell.innerHTML = "Weight";
+    div.style.display = "block";
+	divsave.style.display = "block";
+	tablesize();
+	}	
+	
+	function addRowt5(tableID) {
+        t5size=t5size+1;
+			
+	   var table = document.getElementById(tableID);
+
+		var rowCount = table.rows.length;
+		var row = table.insertRow(rowCount);
+
+		var cell1 = row.insertCell(0);
+		var element1 = document.createElement("input");
+			element1.type = "checkbox";
+			element1.name="chkboxt5["+t5size+"]";
+			element1.id="chkboxt5["+t5size+"]";
+			cell1.appendChild(element1);
+        
+        for(i=1;i<=t4size+2;i++){	
+		    var cell2 = row.insertCell(i);
+		    var element2 = document.createElement("input");
+			element2.type = "text";
+			element2.name = "txtboxt5c"+i+"["+t5size+"]";
+			element2.id="txtboxt5c"+i+"["+t5size+"]";
+			element2.required = true;
+			cell2.appendChild(element2);
+        }
+				
+         tablesize();
+		}
+		
+	</SCRIPT>
+</head>
+<body>
+ <div class="page-header">
+    <h2>Target Definition</h2>      
+  </div>
+<br><br>
+  
+<form action="/targetdefinition" method="post">
+
+
+
+
+<div id="tblbox" class="outer">
+    <div id="divtbl1" class="inner">
+      
+	  <h4>Volume Scale Definition&nbsp;
+	  <div class="toolstips"><img src="{{url_for('static',filename='images/info-black.png')}}"height="20" width="20"/>
+      <span class="tooltiptexts">Targeting limit of each Sales Rep for that particular month</span>
+      </div>
+	  </h4>
+
+      <INPUT type="button" class="btn btn-primary" value="Add Row" onclick="addRowt1('dataTable1')" />
+      <INPUT type="button" class="btn btn-primary" value="Delete Row" onclick="deleteRow('dataTable1')" />
+
+      <table id="dataTable1" border="1">
+      <tr>
+      <th>Select</th>
+      <th>Limit</th>
+      <th>OA Patients per month</th>
+      </tr>
+	  <tr>
+	  <td><input type="checkbox" name="chkboxt1[1]" id="chkboxt1[1]"></td>
+	  <td><input type="text" name="txtboxt1c1[1]" id="txtboxt1c1[1]" value="Low" required></td>
+	  <td><input type="text" name="txtboxt1c2[1]" id="txtboxt1c2[1]" value=0 required></td>
+	  </tr>
+	  <tr>
+	  <td><input type="checkbox" name="chkboxt1[2]" id="chkboxt1[2]"></td>
+	  <td><input type="text" name="txtboxt1c1[2]" id="txtboxt1c1[2]" value="High" required></td>
+	  <td><input type="text" name="txtboxt1c2[2]" id="txtboxt1c2[2]" value=300 required></td>
+	  </tr>
+      </table>
+  </div>
+
+<div id="divtbl2" class="inner">
+     <h4>Segment Rank Definition&nbsp;
+	  <div class="toolstips"><img src="{{url_for('static',filename='images/info-black.png')}}"height="20" width="20"/>
+      <span class="tooltiptexts">Each HCP or Accounts are segmented using Key driving variables which will help the rep to understand the right HCP to target</span>
+      </div>
+	  </h4>
+   <INPUT type="button" class="btn btn-primary"value="Add Row" onclick="addRowt2('dataTable2')" />
+   <INPUT type="button" class="btn btn-primary" value="Delete Row" onclick="deleteRow('dataTable2')" />
+   <table id="dataTable2" border="1">
+   <tr>
+   <th>Select</th>
+   <th>Rank</th>
+   <th>Segment</th>
+   </tr>
+   	  <tr>
+	  <td><input type="checkbox" name="chkboxt2[1]" id="chkboxt2[1]"></td>
+	  <td><input type="text" name="txtboxt2c1[1]" id="txtboxt2c1[1]" value=1 required></td>
+	  <td><input type="text" name="txtboxt2c2[1]" id="txtboxt2c2[1]" value="A" required></td>
+	  </tr>
+	  <tr>
+	  <td><input type="checkbox" name="chkboxt2[2]" id="chkboxt2[2]"></td>
+	  <td><input type="text" name="txtboxt2c1[2]" id="txtboxt2c1[2]" value=2 required></td>
+	  <td><input type="text" name="txtboxt2c2[2]" id="txtboxt2c2[2]" value="B" required></td>
+	  </tr>
+	  <tr>
+	  <td><input type="checkbox" name="chkboxt2[3]" id="chkboxt2[3]"></td>
+	  <td><input type="text" name="txtboxt2c1[3]" id="txtboxt2c1[3]" value=3 required></td>
+	  <td><input type="text" name="txtboxt2c2[3]" id="txtboxt2c2[3]" value="C" required></td>
+	  </tr>	
+	  <tr>
+	  <td><input type="checkbox" name="chkboxt2[4]" id="chkboxt2[4]"></td>
+	  <td><input type="text" name="txtboxt2c1[4]" id="txtboxt2c1[4]" value=4 required></td>
+	  <td><input type="text" name="txtboxt2c2[4]" id="txtboxt2c2[4]" value="D" required></td>
+	  </tr>		  
+   </table>
+  </div>
+
+<div id="divtbl3" class="inner">
+     <h4>Market Share Categorization&nbsp;
+	  <div class="toolstips"><img src="{{url_for('static',filename='images/info-black.png')}}"height="20" width="20"/>
+      <span class="tooltiptexts">Categorizing HCP or Accounts into High, Medium and Low  based on preset Market share values. Current Category's limit range will be <= Previous Category</span>
+      </div>
+	  </h4>
+    <INPUT type="button" class="btn btn-primary" value="Add Row" onclick="addRowt3('dataTable3')" />
+    <INPUT type="button" class="btn btn-primary" value="Delete Row" onclick="deleteRow('dataTable3')" />
+    <table id="dataTable3" border="1">
+    <tr>
+    <th>Select</th>
+    <th>Category</th>
+    <th>Limits</th>
+    </tr>
+   	  <tr>
+	  <td><input type="checkbox" name="chkboxt3[1]" id="chkboxt3[1]"></td>
+	  <td><input type="text" name="txtboxt3c1[1]" id="txtboxt3c1[1]" value="High" required></td>
+	  <td><input type="text" name="txtboxt3c2[1]" id="txtboxt3c2[1]" value=70 required></td>
+	  </tr>
+	  <tr>
+	  <td><input type="checkbox" name="chkboxt3[2]" id="chkboxt3[2]"></td>
+	  <td><input type="text" name="txtboxt3c1[2]" id="txtboxt3c1[2]" value="Medium" required></td>
+	  <td><input type="text" name="txtboxt3c2[2]" id="txtboxt3c2[2]" value=50 required></td>
+	  </tr>	
+	  <tr>
+	  <td><input type="checkbox" name="chkboxt3[3]" id="chkboxt3[3]"></td>
+	  <td><input type="text" name="txtboxt3c1[3]" id="txtboxt3c1[3]" value="Low" required></td>
+	  <td><input type="text" name="txtboxt3c2[3]" id="txtboxt3c2[3]" value=30 required></td>
+	  </tr>
+    </table>
+</div>
+<div id="divtbl4" class="inner">
+     <h4>Probability Drivers Rankings&nbsp;
+	  <div class="toolstips"><img src="{{url_for('static',filename='images/info-black.png')}}"height="20" width="20"/>
+      <span class="tooltiptexts">Categorizing each targeting criteria variable into High, Medium, Low and Weak by providing preset values to provide weightage for each target variable</span>
+      </div>
+	  </h4>
+     <INPUT type="button" class="btn btn-primary" value="Add Row"  id="icol" onclick="addRowt4('dataTable4')" />
+     <INPUT type="button" class="btn btn-primary" value="Delete Row" onclick="deleteRow('dataTable4')" />
+     <br>
+     <table id="dataTable4" border="1">
+     <tr>
+     <th>Select</th>
+     <th>Value Definition</th>
+     <th>Value</th>
+     </tr>
+    <tr>
+	  <td><input type="checkbox" name="chkboxt4[1]" id="chkboxt4[1]"></td>
+	  <td><input type="text" name="txtboxt4c1[1]" id="txtboxt4c1[1]" value="High" required></td>
+	  <td><input type="text" name="txtboxt4c2[1]" id="txtboxt4c2[1]" value=30 required></td>
+	  </tr>
+	  <tr>
+	  <td><input type="checkbox" name="chkboxt4[2]" id="chkboxt4[2]"></td>
+	  <td><input type="text" name="txtboxt4c1[2]" id="txtboxt4c1[2]" value="Medium" required></td>
+	  <td><input type="text" name="txtboxt4c2[2]" id="txtboxt4c2[2]" value=20 required></td>
+	  </tr>	
+	  <tr>
+	  <td><input type="checkbox" name="chkboxt4[3]" id="chkboxt4[3]"></td>
+	  <td><input type="text" name="txtboxt4c1[3]" id="txtboxt4c1[3]" value="Low" required></td>
+	  <td><input type="text" name="txtboxt4c2[3]" id="txtboxt4c2[3]" value=10 required></td>
+	  </tr>	
+	  <tr>
+	  <td><input type="checkbox" name="chkboxt4[4]" id="chkboxt4[4]"></td>
+	  <td><input type="text" name="txtboxt4c1[4]" id="txtboxt4c1[4]" value="Weak" required></td>
+	  <td><input type="text" name="txtboxt4c2[4]" id="txtboxt4c2[4]" value=5 required></td>
+	  </tr>		  
+     </table>
+     
+     </div>
+</div>
+<br><br>
+<INPUT type="button" class="btn btn-primary" value="Define Drivers" id="checkbutton" onclick="table_creation()" />	 
+<br><br>
+<div id="divtbl5" name="divtbl5" style="display:none">
+     <h4>Probability Drivers Definition&nbsp;
+	  <div class="toolstips"><img src="{{url_for('static',filename='images/info-black.png')}}"height="20" width="20"/>
+      <span class="tooltiptexts">The key driving variables are preset and based on which Clustering Activity is carried out for further analysis</span>
+      </div>
+	  </h4>
+<INPUT type="button" class="btn btn-primary" value="Add Row" onclick="addRowt5('dataTable5')" />
+<INPUT type="button" class="btn btn-primary" value="Delete Row" onclick="deleteRow('dataTable5')" />
+<br>
+<table id="dataTable5" border="1">
+	  <tr>
+	  <td><input type="checkbox" name="chkboxt5[1]" id="chkboxt5[1]"></td>
+	  <td><input type="text" name="txtboxt5c1[1]" id="txtboxt5c1[1]" value="Account Relationship" required></td>
+	  <td><input type="text" name="txtboxt5c2[1]" id="txtboxt5c2[1]" value="Strong" required></td>
+	  <td><input type="text" name="txtboxt5c3[1]" id="txtboxt5c3[1]" value="Medium" required></td>
+	  <td><input type="text" name="txtboxt5c4[1]" id="txtboxt5c4[1]" value="Low" required></td>
+	  <td><input type="text" name="txtboxt5c5[1]" id="txtboxt5c5[1]" value="Weak" required></td>
+	  <td><input type="text" name="txtboxt5c6[1]" id="txtboxt5c5[1]" value=14 required></td>
+	  </tr>
+	  <tr>
+	  <td><input type="checkbox" name="chkboxt5[2]" id="chkboxt5[2]"></td>
+	  <td><input type="text" name="txtboxt5c1[2]" id="txtboxt5c1[2]" value="Injection Potential" required></td>
+	  <td><input type="text" name="txtboxt5c2[2]" id="txtboxt5c2[2]" value="Gold Mine" required></td>
+	  <td><input type="text" name="txtboxt5c3[2]" id="txtboxt5c3[2]" value="Silver Mine" required></td>
+	  <td><input type="text" name="txtboxt5c4[2]" id="txtboxt5c4[2]" value="Bronze Mine" required></td>
+	  <td><input type="text" name="txtboxt5c5[2]" id="txtboxt5c5[2]" value="Abandoned Mine" required></td>
+	  <td><input type="text" name="txtboxt5c6[2]" id="txtboxt5c5[2]" value=24 required></td>
+	  </tr>
+	  </table>
+<br><br>
+</div>
+
+<br><br>
+<div id="divsavebutton" name="divsavebutton" style="display:none">
+<input type="hidden" id="table1_size" name="table1_size" value="0">
+<input type="hidden" id="table2_size" name="table2_size" value="0">
+<input type="hidden" id="table3_size" name="table3_size" value="0">
+<input type="hidden" id="table4_size" name="table4_size" value="0">
+<input type="hidden" id="table5_size" name="table5_size" value="0">
+
+<INPUT class="btn btn-primary" type="submit" id="Save" value="Save" />
+</div>
+</form>
+</body>
+</html>
+{% endblock content %}

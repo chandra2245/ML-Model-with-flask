@@ -1,0 +1,132 @@
+<html>
+    <head>
+	    <link rel="icon" type="image/png" sizes="32x32" href="{{url_for('static',filename='images/favicon.png')}}">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Bootstrap CSS - Using the inital theme layout from bootstrap, this is for the layout design-->
+        <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/bootstrap1.css')}}">
+        <!-- Setting up Dynamic title based on the value being passed by the Main Python Code -->
+            {% if title %}
+            <title> Mendel - {{title}} </title>
+            {% else %}
+            <title>Mendel</title>
+            {% endif %}
+
+        <!-- Setting up our Custom theme based on our colors>
+        <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='main.css')}}"-->
+       
+       <style>
+       body 
+            {background-color: rgb(255, 255, 255);
+            color: rgb(47,176,233);
+            margin: 0;
+            padding:0;}
+            .content-section {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: #ffffff;
+                width: 50%;
+                padding: 10px 20px;
+                border: 1px solid #dddddd;
+                border-radius: 3px;
+                margin-bottom: 20px;
+                }
+       
+       /* Backgroud Image*/
+       .hero-image 
+            {background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("{{url_for('static',filename='images/Header_Bg.png')}}");
+            height: 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;}
+       
+       /* WaterMark Medel*/
+       img
+            {position:absolute;
+            opacity: .2;
+            top:50%;
+            left:50%;
+            width: 40%;
+            transform: translate(-50%, -50%);}
+
+        .Mendel_Header
+        {   font-family: 'Times New Roman', Georgia, serif;
+            line-height: 0px;
+            text-align: center;
+            position: absolute;
+            top: 0%;
+            left: 50%;
+            transform: translate(-50%, 15%);
+            color: white;
+        }
+        </style>
+    </head>
+
+<body>  
+{% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+              {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                    {{ message }}
+                </div>
+              {% endfor %}
+          {% endif %}
+{% endwith %}
+    <div class="hero-image">
+        <div class="Mendel_Header">
+            <h1 style="font-size:75px">Mendel</h1>
+            <p style="font-size:25px" > A Rep's Edge </p>
+        </div>
+        <div class="content-section">
+            <img src="{{url_for('static',filename='images/Medel_Logo.jpg')}}">
+            <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Log In</legend>
+                    <div class="form-group">
+                          <label for="usertype">Select User:</label>
+						  <select class="form-control" name="usertype" id="usertype" >
+			                  <option value="">Manager</option> 
+							  <option value="">Sales Representative</option> 
+                          </select>							  
+                    </div>
+                    <div class="form-group">
+                        {{ form.email.label(class="form-control-label") }}
+                        {% if form.email.errors %}
+                            {{ form.email(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                {% for error in form.email.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                                </div>
+                        {% else %}
+                            {{ form.email(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.password.label(class="form-control-label") }}
+                        {% if form.password.errors %}
+                            {{ form.password(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.password.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.password(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                </fieldset>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+        </form>
+    </div>
+    </div>
+
+</body>
+</html>

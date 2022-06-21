@@ -1,0 +1,297 @@
+{% extends "layout.html" %}
+{% block content %}
+<html>
+<head>
+<!--<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">-->
+<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/bootstrap.min.3.3.6.css')}}">
+
+<!--<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css">-->
+<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/bootstrap-datetimepicker.min.css')}}">
+
+<!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>-->
+<script src="{{ url_for('static', filename='js/jquery-3.3.1.slim.min.js') }}"></script>
+
+<!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js"></script>-->
+
+
+<!--<script src="https://d3js.org/d3.v4.min.js"></script>-->
+<script src="{{ url_for('static', filename='js/d3.v4.min.js') }}"></script>
+
+<!--<script src="https://d3js.org/queue.v1.min.js"></script>-->
+<script src="{{ url_for('static', filename='js/queue.v1.min.js') }}"></script>
+
+<!--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
+<script type="text/javascript" src="{{ url_for('static', filename='js/jquery.js') }}"></script> 
+
+<!--<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment.min.js"></script>-->
+<script type="text/javascript" src="{{ url_for('static', filename='js/moment.min.js') }}"></script>
+
+<!--<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>-->
+<script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.3.3.6.js') }}"></script>
+
+<!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>-->
+<script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap-datetimepicker.min.js') }}"></script>
+<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/button.css')}}">
+<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/accountanalysis.css')}}">	
+<script type="text/javascript">
+    $(function () {
+        $('#datetimepicker6').datetimepicker();
+        $('#datetimepicker7').datetimepicker({
+            useCurrent: false //Important! See issue #1075
+			
+        });
+        $("#datetimepicker6").on("dp.change", function (e) {
+            $('#datetimepicker7').data("DateTimePicker").minDate(e.date);
+        });
+        $("#datetimepicker7").on("dp.change", function (e) {
+            $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
+        });
+    });
+</script>
+<script type=text/javascript>
+$(function() {
+$("#update_button").click(function(){
+				$.getJSON('/accountanalysis_filter', {
+				  Initial_date: $("#Initial_date").val(),
+				  Final_date: $("#Final_date").val(),
+				  Account_Names: $("#Account_Names").val(),
+}, function(data) {
+                    $("#account_relation").text(data.account_relation);
+					$("#injection_potential").text(data.injection_potential);
+					$("#pal").text(data.pal);
+					$("#competitive_situation").text(data.competitive_situation);
+					$("#clinical_mindset").text(data.clinical_mindset);
+					$("#value_perception").text(data.value_perception);
+					$("#segment").text(data.segment);
+					
+					$("#account_relation_c").css({'background-color':data.account_relation_c});
+					$("#injection_potential_c").css({'background-color':data.injection_potential_c});
+					$("#pal_c").css({'background-color':data.pal_c});
+					$("#competitive_situation_c").css({'background-color':data.competitive_situation_c});
+					$("#clinical_mindset_c").css({'background-color':data.clinical_mindset_c});
+					$("#value_perception_c").css({'background-color':data.value_perception_c});
+					$("#segment_c").css({'background-color':'#39ac6d'});
+					
+					
+					
+					
+                    hbarchartDataUrl = "{{ url_for('account.get_h_barchart_data') }}";
+					linechartDataUrl = "{{ url_for('account.get_timeseries_data') }}";
+					gaugechartDataUrl = "{{ url_for('account.get_gauge_chart_data') }}";
+				    $("#hbarChart").empty();
+					$("#LineChart").empty();
+					$("#radialBar").empty();
+					$("#gaugeChart").empty();
+					
+					$("#TargetDefinitionBoxes").css("display", "block");
+					$("#chartHeader").css("display", "block");
+				    $.getScript("{{ url_for('static', filename='js/hbarChart.js') }}");
+					$.getScript("{{ url_for('static', filename='js/AccountLineChart.js') }}");
+					$.getScript("{{ url_for('static', filename='js/RadialBarGraph.js') }}");
+					$.getScript("{{ url_for('static', filename='js/liquidFillGauge.js') }}");
+					$.getScript("{{ url_for('static', filename='js/account_main.js') }}");
+				});
+				return false;
+
+
+
+
+
+}); 
+
+
+});
+</script>	
+</head>
+<body>
+  <div class="page-header">
+    <h2>HCP/ Account Analysis</h2>      
+  </div> 
+
+  {% if current_user.user_type=='admin'%}
+<div >
+   <div class="row">
+
+    <div class='col-md-2'>
+         <select name="Rep_Names" id="Rep_Names" class="btn btn-primary">
+			  <option value="">Select Sales Rep</option>  
+		      {% for rep in reps	%}
+				<option value="{{rep}}">{{rep}}</option>
+              {% endfor %}
+              <option value="All">All</option>
+        </select>
+	</div>
+ 
+    <div class='col-md-2'>
+       
+	       <select name="Account_Names" id="Account_Names" class="btn btn-primary">
+			  <option value="">Select HCP/ Account</option>  
+		      {% for account in accounts	%}
+				<option value="{{account}}">{{account}}</option>
+              {% endfor %}
+        </select>
+
+	</div>	
+	<br>
+
+    <div class='col-md-2'>
+        
+            <div class='input-group date' id='datetimepicker6'>
+                <input type='text' class="form-control" id="Initial_date"/>
+                <span class="input-group-addon btn btn-primary">Start Date
+                </span>
+            </div>
+    </div>
+    <div class='col-md-2'>
+      
+            <div class='input-group date' id='datetimepicker7'>
+                <input type='text' class="form-control" id="Final_date"/>
+                <span class="input-group-addon btn btn-primary">End Date
+                </span>
+            </div>
+      
+    </div>
+    <div class='col-md-2'>
+     <button type="button" id="update_button" class="btn btn-primary">Update</button>
+	</div>
+   </div>
+   </div> 
+   {% endif %}
+  {% if current_user.user_type=='sales_rep'%}
+<div class="container">
+   <div class="row">
+
+
+    <div class='col-md-4'>
+       
+	       <select name="Account_Names" id="Account_Names" class="btn btn-primary">
+			  <option value="">Select Account</option>  
+		      {% for account in accounts	%}
+				<option value="{{account}}">{{account}}</option>
+              {% endfor %}
+        </select>
+
+	</div>	
+	<br>
+
+    <div class='col-md-3'>
+        
+            <div class='input-group date' id='datetimepicker6'>
+                <input type='text' class="form-control" id="Initial_date"/>
+                <span class="input-group-addon btn btn-primary">Start Date
+                </span>
+            </div>
+    </div>
+    <div class='col-md-3'>
+      
+            <div class='input-group date' id='datetimepicker7'>
+                <input type='text' class="form-control" id="Final_date"/>
+                <span class="input-group-addon btn btn-primary">End Date
+                </span>
+            </div>
+      
+    </div>
+    <div class='col-md-2'>
+     <button type="button" id="update_button" class="btn btn-primary">Update</button>
+	</div>
+   </div>
+   </div> 
+   {% endif %}
+<br>
+<div id="TargetDefinitionBoxes" class='TOuter' style="display: none;">
+   <div class='TInner' id="segment_c">
+      <h4>Predicted Segment&nbsp;
+	  <div class="toolstips"><img src="{{url_for('static',filename='images/info-white.png')}}"height="18" width="18"/>
+      <span class="tooltiptexts">Predicted HCP segment</span>
+      </div>
+	  </h4>	  
+	  <span class="spInner" id="segment"></span>
+	</div>
+    
+	<div class='TInner' id="account_relation_c">
+      <h4>HCP/ ACC Relationship&nbsp;
+	  <div class="toolstips"><img src="{{url_for('static',filename='images/info-white.png')}}"height="18" width="18"/>
+      <span class="tooltiptexts">Reps relation with HCPs</span>
+      </div>
+	  </h4>	 	  
+	  <span class="spInner" id="account_relation"></span>
+	</div>
+	<div class='TInner' id="injection_potential_c">
+      <h4>Injection Potential&nbsp;
+	  <div class="toolstips"><img src="{{url_for('static',filename='images/info-white.png')}}"height="18" width="18"/>
+      <span class="tooltiptexts">Penetrating factor of an HCP</span>
+      </div>
+	  </h4>	
+	  <span class="spInner" id="injection_potential"></span>
+	</div>
+    <div class='TInner' id="pal_c">
+      <h4>Product Adaption Level&nbsp;
+	  <div class="toolstips"><img src="{{url_for('static',filename='images/info-white.png')}}"height="18" width="18"/>
+      <span class="tooltiptexts">Acceptance of new drug</span>
+      </div>
+	  </h4>
+	  <span class="spInner" id="pal"></span>
+	</div>
+	<div class='TInner' id="competitive_situation_c">
+      <h4>Competitive Situation&nbsp;
+	  <div class="toolstips"><img src="{{url_for('static',filename='images/info-white.png')}}"height="18" width="18"/>
+      <span class="tooltiptexts">Represent ethical behaviour of an HCP</span>
+      </div>
+	  </h4>
+	  <span class="spInner" id="competitive_situation"></span>
+	</div>
+    <div class='TInner' id="clinical_mindset_c">
+      <h4>Clinical Mindset&nbsp;
+	  <div class="toolstips"><img src="{{url_for('static',filename='images/info-white.png')}}"height="18" width="18"/>
+      <span class="tooltiptexts">Categorizing HCP or Accounts into High Medium and low  based on preset Market share values </span>
+      </div>
+	  </h4>
+	  <span class="spInner" id="clinical_mindset"></span>
+	</div>
+    <div class='TInner' id="value_perception_c">
+      <h4>Value Perception&nbsp;
+	  <div class="toolstips"><img src="{{url_for('static',filename='images/info-white.png')}}"height="18" width="18"/>
+      <span class="tooltiptexts">How much value our drug brings to that HCP</span>
+      </div>
+	  </h4>
+
+	  <span class="spInner" id="value_perception"></span>
+	</div>
+	
+</div>
+<br><br>
+<div id="chartHeader" style="display: none;">
+    <div class='col-md-3'>
+	  <h4>Sales Analysis&nbsp;
+	  <div class="toolstips"><img src="{{url_for('static',filename='images/info-black.png')}}"height="18" width="18"/>
+      <span class="tooltiptexts">Target Sales (Forecasted Sales) vs Actual Sales plot</span>
+      </div>
+	  </h4>
+    </div>	  
+	<div class='col-md-3'>
+		  <h4>Market Share&nbsp;
+	  <div class="toolstips"><img src="{{url_for('static',filename='images/info-black.png')}}"height="18" width="18"/>
+      <span class="tooltiptexts">The plot shows the percentage of market controlled by our drug of the HCP</span>
+      </div>
+	  </h4>
+    </div>
+	
+	
+	
+	 <div class='col-md-5'>
+	  <h4>Quarter to Date&nbsp;
+	  <div class="toolstips"><img src="{{url_for('static',filename='images/info-black.png')}}"height="18" width="18"/>
+      <span class="tooltiptexts">Target vs Actual Sales at Quarter Level</span>
+      </div>
+	  </h4>
+    </div>
+	 
+</div> 
+<div id="chartRow1">
+   <div class='col-md-3' id="hbarChart"></div> 
+   <div class='col-md-3' id="gaugeChart"></div>
+   <div class='col-md-5' id="LineChart"></div> 
+</div>
+
+</html>
+{% endblock content %}

@@ -1,0 +1,146 @@
+
+
+body {
+  background: #fafafa;
+  color: rgb(60, 179, 113);
+  margin-top: 5rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #444444;
+}
+
+/* Color of the navigation bar */
+.bg-steel {
+  background-color: #3cb371;
+}
+
+.site-header .navbar-nav .nav-link {
+  color: #b4edcd;
+}
+
+.site-header .navbar-nav .nav-link:hover {
+  color: #ffffff;
+}
+
+.site-header .navbar-nav .nav-link.active {
+  font-weight: 500;
+}
+
+.content-section {
+  background: #ffffff;
+  padding: 10px 20px;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+
+.article-title {
+  color: #444444;
+}
+
+a.article-title:hover {
+  color: #428bca;
+  text-decoration: none;
+}
+
+.article-content {
+  white-space: pre-line;
+}
+
+.article-img {
+  height: 65px;
+  width: 65px;
+  margin-right: 16px;
+}
+
+.article-metadata {
+  padding-bottom: 1px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid #e3e3e3
+}
+
+.article-metadata a:hover {
+  color: #333;
+  text-decoration: none;
+}
+
+.article-svg {
+  width: 25px;
+  height: 25px;
+  vertical-align: middle;
+}
+
+.account-img {
+  height: 125px;
+  width: 125px;
+  margin-right: 20px;
+  margin-bottom: 16px;
+}
+
+.account-heading {
+  font-size: 2.5rem;
+}
+
+table {
+  border-collapse: collapse;
+  font-size: 14;
+  padding:5px;
+}
+
+th, td {
+  text-align: center;
+  padding: 5px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+tr:hover {background-color:#D0EDDE;}
+
+th {
+  background-color: #3cb371;
+  color: white;
+}
+
+.myButton {
+	background-color:#3cb371;
+	-moz-border-radius:28px;
+
+	border-radius:28px;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:17px;
+	padding: 14px 25px;
+	text-decoration:none;
+}
+.myButton:hover {
+	background-color:#12A55B;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+}
+
+.myButton:disabled {
+  background-color: #cccccc;
+  color: #666666;
+}
+
+
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 7px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #66cc94; 
+  border-radius: 7px;
+}

@@ -1,0 +1,124 @@
+{% extends "layout.html" %}
+
+
+{% block content %}
+
+<html>
+<head>
+<style>
+
+body, html {
+  height: 100%;
+  margin: 0;
+}
+ .container1 {
+  position: relative;
+  width: 100%;
+}
+
+/* Make the image responsive */
+.container1 img {
+  width: 100%;
+  height: 80%;
+}
+
+/* for the text over image */
+.bottom-left1 {
+  color: white;
+  font-family: "Times New Roman", Times, serif;
+  font-style: italic;
+  font-size: 40px;
+  font-weight: bold;
+  position: absolute;
+  top: 30%;
+  left: 65%;
+  transform: translate(-50%, -50%);
+}
+
+
+.bottom-left2 {
+  text-shadow: 3px 2px white;
+  font-family: "Times New Roman", Times, serif;
+  font-style: italic;
+  font-size: 35px;
+  font-weight: bold;
+  position: absolute;
+  top: 35%;
+  left: 65%;
+  transform: translate(-50%, -50%);
+}
+
+.bottom-left3 {
+  text-shadow: 3px 2px red;
+  font-family: "Times New Roman", Times, serif;
+  font-style: italic;
+  font-size: 60px;
+  font-weight: bold;
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Style the search button and place it in the middle of the container/image */
+input[type=text] {
+ position: absolute; 
+ width: 350px;
+   top: 45%;
+  left: 50%;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: white;
+    background-image: {{url_for('static',filename='images/searchicon1.PNG')}};
+background-size: 30px 30px;
+  background-position: 9px 7.5px; 
+  background-repeat: no-repeat;
+  padding: 12px 20px 12px 40px;
+  -webkit-transition: width 0.4s ease-in-out;
+  transition: width 0.4s ease-in-out;
+  cursor: pointer;
+}
+
+input[type=text]:focus {
+  width: 80%;
+  top: 5%;
+  left: 5%;
+  placeholder: "Enter the HCP details";
+  
+}
+
+.button{
+  position: absolute; 
+  background-color: #4CAF50; /* Green */
+  top: 5%;
+  left: 85%;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+</style>
+</head>
+<body>
+
+<!-- Background Image --> 
+<div class="container1">
+  <img src="{{url_for('static',filename='images/360.jpg')}}" alt="New Era">
+  <div class="bottom-left1">Welcome! to a new Era of</div>
+  <div class="bottom-left2">KNOW YOUR CUSTOMER</div>
+  <form action="/hcp360_form" method="post">
+     <input type="text" name="search" id="search" placeholder="Search HCP..">
+     <input  id="myButton" type="submit" class="button" value="Search">
+  </form>
+</div>
+
+
+</body>
+</html>
+{% endblock content %}

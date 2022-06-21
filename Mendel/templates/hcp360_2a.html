@@ -1,0 +1,764 @@
+{% extends "layout.html" %}
+
+
+{% block content %}
+<html>
+<head>
+<style>
+
+
+/* Make the image responsive */
+
+
+/* Style the search button and place it in the middle of the container/image */
+input[type=text] {
+ position: absolute; 
+ width: 66%;
+   top: 0.7%;
+  left: 19%;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: white;
+  background-image: {{url_for('static',filename='images/searchicon1.PNG')}};
+background-size: 30px 30px;
+  background-position: 9px 7.5px; 
+  background-repeat: no-repeat;
+  padding: 12px 20px 12px 40px;
+  -webkit-transition: width 0.4s ease-in-out;
+  transition: width 0.4s ease-in-out;
+  cursor: pointer;
+}
+
+
+.button{
+  position: absolute; 
+  background-color: #4CAF50; /* Green */
+  top: 0.5%;
+  left: 85%;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.collapsible {
+  background-color: #3cb371;
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+.active, .collapsible:hover {
+  background-color: #777;
+}
+
+.collapsible:after {
+  content: '\002B';
+  color: green;
+  font-weight: bold;
+  float: right;
+  margin-left: 5px;
+}
+
+.active:after {
+  content: '\2212';
+}
+
+.content {
+  padding: 0 18px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  background-color: #f1f1f1;
+}
+</style>
+<body>
+
+<!-- Background Image --> 
+<div class="container">
+  <img src="{{url_for('static',filename='images/HCP.PNG')}}" alt="New Era">
+  <input type="text" name="search" placeholder="Search HCP..">
+<input onclick="location.href='home.html'" id="myButton" type="button" class="button" value="Search">
+</div>
+<br>
+<br>
+<canvas id="intro" width="1213" height="150"
+style="border:1px solid #000000;">
+Your browser does not support the HTML5 canvas tag.
+</canvas>
+
+<br>
+
+<h2>Propensity Percentage Score</h2>  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<div class="progress">
+<div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
+  aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:80%" width=20%>
+    80% (success)
+  </div>
+</div>
+
+
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<div class="container1">
+ <h2>Decile Group   : HIGH</h2>
+
+
+</div>
+
+<button class="collapsible">Rep Interactions</button>
+
+<table class="content" style="width:100%" >
+  <tr>
+    <td>
+<div id="chart_repvisit" style="width: 500px; height: 200px"></div></td>
+<td>&nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  H1 Visits
+<div id="guage_visits" style="width: 200px; height: 120px;"></div>
+</td>
+<td>&nbsp &nbsp &nbsp Avg.Time/Visit (min)
+<div id="guage_visits1" style="width: 200px; height: 120px;"></div>
+</td>
+<td> &nbsp &nbsp &nbsp Success Rate (%)
+<div id="guage_visits3" style="width: 200px; height: 120px;"></div>
+</td>
+
+  </tr>
+</table>
+
+<br>
+<button class="collapsible">Call Email Interaction</button>
+
+<table class="content" style="width:100%" >
+  <tr>
+    <td>
+<div id="chart_callinteration" style="width: 500px; height: 200px"></div></td>
+<td>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  Avg.Time/Rep Call (min)
+ <div id="guage_calls" style="width: 400px; height: 130px;">
+<td>
+ <td> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp Open Rate (%)
+ <div id="guage_calls1" style="width: 400px; height: 130px;">
+<td>
+</div>
+</td>
+  </tr>
+</table>
+
+<br>
+<button class="collapsible">Mature and Launch Prescription Analysis</button>
+
+<table class="content" style="width:100%" >
+  <tr>
+    <td>
+<div id="Chart_Rx" style="width: 500px; height: 300px"></div></td>
+<td>
+<div id="Chart_Rx2" style="width: 500px; height: 300px"></div>
+</td>
+  </tr>
+</table>
+
+<br>
+<button class="collapsible">Digital Channel Analysis</button>
+
+<table class="content" style="width:100%" >
+  <tr>
+    <td>
+<div id="piechart" style="width: 500px; height: 380px"></div></td>
+<td>
+<div id="stacked_col" style="width: 500px; height: 380px"></div>
+</td>
+  </tr>
+</table>
+
+<button class="collapsible">Payments Data</button>
+
+<table class="content" style="width:100%" >
+  <tr>
+    <td>
+<div id="piechart1" style="width: 500px; height: 380px"></div></td>
+<td>
+<div id="piechart2" style="width: 500px; height: 380px"></div>
+</td>
+  </tr>
+</table>
+
+
+<button class="collapsible">Recommended and Affliated Accounts Content</button>
+<br>
+<br>
+<table class="content" style="width:100%" >
+  <tr>
+    <td>
+<div id="table_sort_div" style="width: 500px; height: 200px"></div>
+</td>
+<td>
+<img src="{{url_for('static',filename='images/Affl.jpg')}}" alt="Smiley face" height="200" width="500">
+</td>
+  </tr>
+</table>
+
+<button class="collapsible">Patient Expierence Ratings</button>
+<br>
+<br>
+
+<table class="content" style="width:100%" >
+  <tr>
+    <td>
+<img src="{{url_for('static',filename='images/Patient1.jpg')}}" alt="Smiley face" height="200" width="200">
+</td>
+<td>
+<img src="{{url_for('static',filename='images/Patient2.jpg')}}" alt="Smiley face" height="200" width="500">
+</td>
+<td>
+<img src="{{url_for('static',filename='images/Patient3.jpg')}}" alt="Smiley face" height="200" width="500">
+</td>
+
+
+
+  </tr>
+
+</table>
+
+<button class="collapsible">Other Information</button>
+<br>
+<br>
+<p>
+<img src="{{url_for('static',filename='images/awards.png')}}" alt="linked in" height="40" width="40"> Awards: 1.CMS Stage 1 EHR, 2011 
+&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+
+<img src="{{url_for('static',filename='images/fell.png')}}" alt="linked in" height="40" width="40"> Fellowship: University of Texas MD Anderson Cancer Center
+<p>
+<p>
+<img src="{{url_for('static',filename='images/cert.jpg')}}" alt="twitter" height="40" width="40"> Licensure: 1. TX State Medical License 
+								     2. WI State Medical License
+&nbsp &nbsp &nbsp &nbsp
+<img src="{{url_for('static',filename='images/edu.jpg')}}" alt="twitter" height="40" width="40"> College: University of Utah 
+<p>
+
+
+
+
+<script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.maxHeight){
+      content.style.maxHeight = null;
+    } else {
+      content.style.maxHeight = content.scrollHeight + "px";
+    } 
+  });
+}
+</script>
+
+
+<script>
+ var img1 = new Image();
+    img1.src = "{{url_for('static',filename='images/image1.jpg')}}";
+window.onload = function() {
+    var canvas = document.getElementById("intro");
+    var ctx1 = canvas.getContext("2d");
+    ctx1.drawImage(img1,18,1);
+    ctx1.font = "bold 30px Arial";
+       ctx1.fillText("Dr. Randal Aaberg",240,50);
+	
+    ctx1.font = "bold 14px arial";
+    ctx1.fillText("Title    : ",260,80);	
+    ctx1.font = "14px arial";
+    ctx1.fillText("MD",320,80);	
+
+    ctx1.font = "bold 14px arial";
+    ctx1.fillText("Speciality : ",260,110);	
+    ctx1.font = "14px arial";
+    ctx1.fillText("Speciality1",340,110);	
+
+    ctx1.font = "bold 20px Verdana";
+    ctx1.fillText("Demographic Info",700,50);	
+    ctx1.font = "bold 12px Verdana";
+    ctx1.fillText("NPI             : ",580,70);	
+    ctx1.font = "12px Verdana";
+    ctx1.fillText("1090909202 ",700,70);
+
+     ctx1.font = "bold 14px arial";
+    ctx1.fillText("Years of Practice : 21+ ",260,140);	
+    ctx1.font = "14px arial";
+  
+    	
+    
+    ctx1.font = "bold 12px Verdana";
+    ctx1.fillText("Entity Type : ",580,90);	
+    ctx1.font = "12px Verdana";
+    ctx1.fillText("Type1",700,90);	
+    
+    ctx1.font = "bold 12px Verdana";
+    ctx1.fillText("Address      : ",580,110);	
+    ctx1.font = "12px Verdana";
+    ctx1.fillText("687 S. Prairie Drive, NY 10458",700,110);	
+
+    ctx1.font = "bold 12px Verdana";
+    ctx1.fillText("Phone Number : ",980,70);	
+    ctx1.font = "12px Verdana";
+    ctx1.fillText("080-657-009098",1100,70);	
+
+    ctx1.font = "bold 12px Verdana";
+    ctx1.fillText("Practice Account : ",580,130);	
+    ctx1.font = "12px Verdana";
+    ctx1.fillText("Account1",720,130);	
+
+    ctx1.font = "bold 12px Verdana";
+    ctx1.fillText("Location : ",980,90);	
+    ctx1.font = "12px Verdana";
+    ctx1.fillText("New York ",1100,90);	
+
+    ctx1.font = "bold 12px Verdana";
+    ctx1.fillText("Secondary Speciality : ",980,110);	
+    ctx1.font = "12px Verdana";
+    ctx1.fillText("Speciality2",1130,110);	
+
+    ctx1.font = "bold 12px Verdana";
+    ctx1.fillText("Languages : ",980,130);	
+    ctx1.font = "12px Verdana";
+    ctx1.fillText("English",1130,130);	};
+</script>
+
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>  
+<script type="text/javascript">
+google.charts.load('current', {packages: ['corechart', 'bar']});
+google.charts.setOnLoadCallback(drawBasic);
+
+function drawBasic() {
+
+      var data = google.visualization.arrayToDataTable([
+          ['Month_Year', '# Visits'],
+          ['Jan19',  3],
+          ['Feb19',  2],
+          ['Mar19',  1],
+          ['Apr19',  4],
+          ['May19',  6],
+          ['Jun19',  1]
+]);
+ 
+
+var options = {
+
+          title: 'Rep Visits',
+          curveType: 'function',
+          legend: { position: 'bottom' }
+        };
+
+      var chart = new google.visualization.ColumnChart(
+        document.getElementById('chart_repvisit'));
+
+      chart.draw(data, options);
+    }
+</script>
+
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+   <script type="text/javascript">
+      google.charts.load('current', {'packages':['gauge']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Label', 'Value'],
+          ['', 30],
+      
+        ]);
+
+        var options = {
+          width: 2000, height: 130,
+          redFrom: 0, redTo: 8,
+          yellowFrom:9, yellowTo: 15,
+          minorTicks: 5
+        };
+	
+	
+        var chart = new google.visualization.Gauge(document.getElementById('guage_visits'));
+
+        chart.draw(data, options);
+
+      }
+    </script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+   <script type="text/javascript">
+      google.charts.load('current', {'packages':['gauge']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Label', 'Value'],
+                    ['', 10],
+         
+        ]);
+
+        var options = {
+          width: 2000, height: 130,
+          redFrom: 0, redTo: 8,
+          yellowFrom:9, yellowTo: 15,
+          minorTicks: 5
+        };
+	
+	
+        var chart = new google.visualization.Gauge(document.getElementById('guage_visits1'));
+
+        chart.draw(data, options);
+
+      }
+    </script>
+
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+   <script type="text/javascript">
+      google.charts.load('current', {'packages':['gauge']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Label', 'Value'],
+         
+	  ['', 75],
+        ]);
+
+        var options = {
+          width: 2000, height: 130,
+          redFrom: 0, redTo: 8,
+          yellowFrom:9, yellowTo: 15,
+          minorTicks: 5
+        };
+	
+	
+        var chart = new google.visualization.Gauge(document.getElementById('guage_visits3'));
+
+        chart.draw(data, options);
+
+      }
+    </script>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>  
+<script type="text/javascript">
+google.charts.load('current', {packages: ['corechart', 'bar']});
+google.charts.setOnLoadCallback(drawBasic);
+
+function drawBasic() {
+
+      var data = google.visualization.arrayToDataTable([
+          ['Month_Year', '# Rep calls','# Rep emails','# Inbound Calls'],
+          ['Jan19',  1,4,5],
+          ['Feb19',  2,5,3],
+          ['Mar19',  2,4,1],
+          ['Apr19',  1,4,2],
+          ['May19',  2,3,1],
+          ['Jun19',  1,2,0]
+]);
+ 
+
+var options = {
+
+          title: 'Call Email Interaction',
+          curveType: 'function',
+          legend: { position: 'bottom' }
+        };
+
+      var chart = new google.visualization.ColumnChart(
+        document.getElementById('chart_callinteration'));
+
+      chart.draw(data, options);
+    }
+</script>
+
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+   <script type="text/javascript">
+      google.charts.load('current', {'packages':['gauge']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Label', 'Value'],
+          ['', 3]
+	 
+        ]);
+
+        var options = {
+          width: 1000, height: 130,
+          redFrom: 0, redTo: 4,
+          yellowFrom:5, yellowTo: 8,
+          minorTicks: 5
+        };
+
+        var chart = new google.visualization.Gauge(document.getElementById('guage_calls'));
+
+        chart.draw(data, options);
+      }
+    </script>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+   <script type="text/javascript">
+      google.charts.load('current', {'packages':['gauge']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Label', 'Value'],
+        
+	  ['', 80]
+        ]);
+
+        var options = {
+          width: 1000, height: 130,
+          redFrom: 0, redTo: 4,
+          yellowFrom:5, yellowTo: 8,
+          minorTicks: 5
+        };
+
+        var chart = new google.visualization.Gauge(document.getElementById('guage_calls1'));
+
+        chart.draw(data, options);
+      }
+    </script>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+   <script type="text/javascript">
+google.charts.load('current', {packages: ['corechart', 'line']});
+google.charts.setOnLoadCallback(drawCurveTypes);
+
+function drawCurveTypes() {
+      var data = google.visualization.arrayToDataTable([
+          ['Month_Year', 'Brand 1','Brand 2'],
+          ['Jan19',  1,4],
+          ['Feb19',  2,5],
+          ['Mar19',  2,4],
+          ['Apr19',  1,4],
+          ['May19',  2,3],
+          ['Jun19',  1,2]
+]);
+      var options = {
+	title: 'Prescriptions',
+        legend: { position: 'bottom', maxLines: 3 },
+        hAxis: {
+          title: 'Months'
+        },
+        vAxis: {
+          title: 'TRx'
+        },
+        series: {
+          1: {curveType: 'function'}
+        }
+      };
+
+      var chart = new google.visualization.LineChart(document.getElementById('Chart_Rx'));
+      chart.draw(data, options);
+ }
+</script>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+   <script type="text/javascript">
+google.charts.load('current', {packages: ['corechart', 'line']});
+google.charts.setOnLoadCallback(drawCurveTypes);
+
+function drawCurveTypes() {
+      var data = google.visualization.arrayToDataTable([
+          ['Month_Year', 'Brand 1','Brand 2'],
+          ['M1',  0,0],
+          ['M2',  2,5],
+          ['M3',  2,4],
+          ['M4',  1,'NA'],
+          ['M5',  2,'NA'],
+          ['M6',  1,'NA']
+]);
+      var options = {
+	title: 'TRx Launch Analysis',
+        legend: { position: 'bottom', maxLines: 3 },
+	hAxis: {
+          title: 'Months'
+        },
+        vAxis: {
+          title: 'TRx'
+        },
+        series: {
+          1: {curveType: 'function'}
+        }
+      };
+
+      var chart = new google.visualization.LineChart(document.getElementById('Chart_Rx2'));
+      chart.draw(data, options);
+ }
+</script>
+
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Digital Segment', 'Percentage'],
+          ['Virtual Sales Presentation',     26],
+          ['Web or CD based',      5],
+          ['Electronic Enabled Presentation',  20],
+          ['eCME Events', 3],
+          ['others',    39]
+        ]);
+
+        var options = {
+          title: 'Digital Channel Promotions',
+          is3D: true,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+      }
+    </script>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Paytype', 'Percentage'],
+          ['Food & Beverage',     1816],
+          ['Travel & Lodging',      1751],
+          ['Education',    38]
+        ]);
+
+        var options = {
+          title: '2018 Summary By Nature of Payment',
+          is3D: true,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart1'));
+
+        chart.draw(data, options);
+      }
+    </script>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Paytype', 'Percentage'],
+          ['Food & Beverage',     1816],
+          ['Travel & Lodging',      1751],
+          ['Education',    38],
+	  ['Opt Out',    30]
+        ]);
+
+        var options = {
+          title: '2017 Summary By Nature of Payment',
+          is3D: true,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart2'));
+
+        chart.draw(data, options);
+      }
+    </script>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['table']});
+      google.charts.setOnLoadCallback(drawSort);
+function drawSort() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Key Messages');
+        data.addColumn('number', '# Views');
+        data.addColumn('boolean', 'Recommended Content');
+        data.addRows([
+          ['Message 1',  {v: 290, f: '290'}, true],
+          ['Message 2',   {v:1524,   f: '1,524'},  false],
+          ['Message 3', {v: 306, f: '306'}, true],
+          ['Message 4',   {v: 288,  f: '288'},  true],
+          ['Message 5',   {v: 2100,  f: '2,100'},  true]
+        ]);
+
+        var table = new google.visualization.Table(document.getElementById('table_sort_div'));
+
+        table.draw(data, {showRowNumber: true, width: '100%', height: '100%'});
+ }
+</script>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {packages: ['corechart', 'bar']});
+google.charts.setOnLoadCallback(drawStacked);
+
+function drawStacked() {
+      var data = google.visualization.arrayToDataTable([
+        ['Genre', 'Field', 'Digital', { role: 'annotation' } ],
+        ['Jan19', 10, 24, ''],
+        ['Feb19', 16, 22, ''],
+        ['Mar19', 10, 40, ''],
+        ['Apr19', 10, 24, ''],
+        ['May19', 15, 30, ''],
+        ['Jun19', 28, 19, '']
+      ]);
+
+      var options = {
+        title: 'Engagement Channel',
+        width: 600,
+        height: 400,
+        legend: { position: 'bottom', maxLines: 3 },
+        bar: { groupWidth: '75%' },
+        isStacked: true,
+      };
+
+      var chart = new google.visualization.ColumnChart(document.getElementById('stacked_col'));
+      chart.draw(data, options);
+    }    
+</script>
+
+
+<br>
+<button class="collapsible">Social Presence and Research</button>
+<br>
+<br>
+<p>
+<img src="{{url_for('static',filename='images/ln.png')}}" alt="linked in" height="40" width="40"> Randal Aaberg@linked.com 
+<img src="{{url_for('static',filename='images/twit.png')}}" alt="twitter" height="40" width="40"> Randal Aaberg@twitter.com
+<img src="{{url_for('static',filename='images/pub.png')}}" alt="linked in" height="40" width="40"> 10 Publications
+<img src="{{url_for('static',filename='images/cit.png')}}" alt="linked in" height="40" width="40"> 5 Citations
+</p>
+<br>
+<br>
+</body>
+</head>
+</html>
+{% endblock content %}

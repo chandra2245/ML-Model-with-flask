@@ -1,0 +1,42 @@
+Health Group,Account Name,Targeting Criteria_1,Targeting Criteria_2,Targeting Criteria_3,Targeting Criteria_4,Targeting Criteria_5,Targeting Criteria_6,Targeting Criteria_7,Targeting Criteria_8,Targeting Criteria_9,Targeting Criteria_10,Targeting Criteria_11,Targeting Criteria_12,Targeting Criteria_13,"Prob 
+Score",Total Potential Value,"Actual 
+Sales",Target Sales,Market Share in Account,% of Territory Potential Sales,% of Territory Actual Sales,Segment
+Pantai Med. Ctr. Bangsar ,Sivananthan K. ,15085,Strong,Gold Mine,"Loyalist 
+(Includes Advocates)",Highly Ethical,Advocate,Strong,1,30,28,25,0.933333333,0.892857143,1,500,25000,,0.892857143,0.061412487,0.206185567,A
+Pantai Med. Ctr. Bangsar ,Gobinder Singh,281,Medium,Gold Mine,Mixed User,Somewhat Ethical,Neutral,Medium,0.746666667,20,15,10,0.75,0.666666667,0.746666667,120,12500,,0.666666667,0.040941658,0.103092784,A
+Pantai Med. Ctr. Bangsar ,Kok Choong Seng ,15061,Medium,Silver Mine,Trialist,Somewhat Ethical,Neutral,Medium,0.593333333,8,4,1,0.5,0.25,0.593333333,100,2500,,0.25,0.016376663,0.020618557,A
+Pantai Med. Ctr. Bangsar ,Paramaswaran S.,6846,Low,Bronze Mine,Pro-Competitor (Includes Lost Accounts),Low Ethics,Skeptical,Weak,0.286666667,12,8,0,0.666666667,0,0.286666667,80,0,,0,0.024564995,0,D
+Pantai Med. Ctr. Bangsar ,S. Pasupathy,457,Low,Bronze Mine,Pro-Competitor (Includes Lost Accounts),Low Ethics,Neutral,Weak,0.306666667,12,8,0,0.666666667,0,0.306666667,80,0,,0,0.024564995,0,D
+Glenaeagles ,Charanjeet Singh,16788,Strong,Gold Mine,"Loyalist 
+(Includes Advocates)",Somewhat Ethical,Advocate,Strong,0.906666667,15,10,10,0.666666667,1,0.906666667,60,12500,,1,0.030706244,0.103092784,C
+Glenaeagles ,Chin Chee Howe,136,Strong,Gold Mine,Mixed User,Somewhat Ethical,Neutral,Medium,0.793333333,15,13,6,0.866666667,0.461538462,0.793333333,15,6250,,0.461538462,0.030706244,0.051546392,C
+Glenaeagles ,Zulkarnian Ismail,4942,Medium,Silver Mine,Trialist,Low Ethics,Pro-PRP,Low,0.45,10,8,0,0.8,0,0.45,10,0,,0,0.020470829,0,D
+Glenaeagles ,Tay Yong Guan,3545,Weak,Bronze Mine,Pro-Competitor (Includes Lost Accounts),Low Ethics,Pro-PRP,Weak,0.253333333,12,8,0,0.666666667,0,0.253333333,12,0,,0,0.024564995,0,D
+Glenaeagles ,Chan Kin Yuen,726,Low,Abandoned Mine,Pro-Competitor (Includes Lost Accounts),Low Ethics,Skeptical,Weak,0.246666667,10,0,0,0,0,0.246666667,10,0,,0,0.020470829,0,A
+Glenaeagles ,Lim Heng Hing ,729,Low,Abandoned Mine,Pro-Competitor (Includes Lost Accounts),Low Ethics,Skeptical,Weak,0.246666667,6,0,0,0,0,0.246666667,6,0,,0,0.012282497,0,A
+Glenaeagles ,Low Tze Choong ,8033,Low,Bronze Mine,Pro-Competitor (Includes Lost Accounts),Low Ethics,Skeptical,Weak,0.286666667,7,5,0,0.714285714,0,0.286666667,7,0,,0,0.01432958,0,D
+Glenaeagles ,Samsudin B Osman ,591,Low,Silver Mine,Pro-Competitor (Includes Lost Accounts),Low Ethics,Skeptical,Weak,0.366666667,8,6,0,0.75,0,0.366666667,8,0,,0,0.016376663,0,D
+Glenaeagles ,Thomas Vanniasingham,21328,Low,Abandoned Mine,Trialist,No Ethics,Neutral,Low,0.266666667,4,0,0,0,0,0.266666667,4,0,,0,0.008188332,0,D
+Pantai Cheras,S. Suntharalingam ,429,Strong,Silver Mine,Mixed User,Somewhat Ethical,Neutral,Medium,0.713333333,10,7,3,0.7,0.428571429,0.713333333,10,5000,,0.428571429,0.020470829,0.041237113,C
+Pantai Cheras,Khairul Faizi ,1376,Medium,Silver Mine,Mixed User,Low Ethics,Neutral,Medium,0.573333333,10,8,1,0.8,0.125,0.573333333,10,1250,,0.125,0.020470829,0.010309278,C
+Pantai Cheras,Peter Paul Wong YC,23282,Low,Silver Mine,Pro-Competitor (Includes Lost Accounts),Somewhat Ethical,Pro-PRP,Weak,0.45,10,5,0,0.5,0,0.45,10,0,,0,0.020470829,0,D
+Pantai Cheras,Ang Leong Chai ,430,Weak,Abandoned Mine,Pro-Competitor (Includes Lost Accounts),Somewhat Ethical,Skeptical,Weak,0.316666667,10,0,0,0,0,0.316666667,10,0,,0,0.020470829,0,D
+Pantai Cheras,M. N. Manukaran,15075,Low,Abandoned Mine,Pro-Competitor (Includes Lost Accounts),Somewhat Ethical,Neutral,Weak,0.36,4,0,0,0,0,0.36,4,0,,0,0.008188332,0,D
+Pantai Cheras,Ong Yew Chong ,12994,Low,Abandoned Mine,Trialist,Somewhat Ethical,Neutral,Medium,0.426666667,3,2,1,0.666666667,0.5,0.426666667,3,1250,,0.5,0.006141249,0.010309278,D
+Pantai Indah,Ivan Randal,18810,Medium,Silver Mine,Mixed User,Low Ethics,Pro-PRP,Medium,0.543333333,12,10,1,0.833333333,0.1,0.543333333,12,6250,,0.1,0.024564995,0.051546392,C
+Pantai Indah,Leow Hon Keong ,1631,Medium,Silver Mine,Mixed User,Somewhat Ethical,Neutral,Medium,0.666666667,12,8,4,0.666666667,0.5,0.666666667,12,1250,,0.5,0.024564995,0.010309278,C
+Pantai Indah,Ezlan Merican,526,Low,Silver Mine,Pro-Competitor (Includes Lost Accounts),Low Ethics,Skeptical,Weak,0.366666667,8,4,0,0.5,0,0.366666667,8,0,,0,0.016376663,0,D
+Tung Shin,Low Eu Huat ,3527,Medium,Silver Mine,Trialist,Somewhat Ethical,Neutral,Low,0.573333333,10,6,0,0.6,0,0.573333333,10,1250,,0,0.020470829,0.010309278,C
+Tung Shin,Chai Kueh Kong ,6611,Medium,Silver Mine,Pro-Competitor (Includes Lost Accounts),Somewhat Ethical,Neutral,Weak,0.526666667,10,6,2,0.6,0.333333333,0.526666667,10,1250,,0.333333333,0.020470829,0.010309278,C
+Tung Shin,Ng Yue Onn,6309,Weak,Bronze Mine,Pro-Competitor (Includes Lost Accounts),Somewhat Ethical,Pro-PRP,Weak,0.346666667,8,0,0,0,0,0.346666667,8,,,0,0.016376663,0,D
+Ampang Puteri ,Abd Wahab Ghani,162,Low,Silver Mine,Mixed User,Highly Ethical,Neutral,Medium,0.713333333,8,5,1,0.625,0.2,0.713333333,8,6250,,0.2,0.016376663,0.051546392,C
+Ampang Puteri ,Ali Noor Ghani ,163,Low,Silver Mine,Pro-Competitor (Includes Lost Accounts),Somewhat Ethical,Skeptical,Weak,0.46,10,6,0,0.6,0,0.46,10,0,,0,0.020470829,0,D
+Ampang Puteri ,Syed Alsagoff ,279,Low,Bronze Mine,Pro-Competitor (Includes Lost Accounts),Somewhat Ethical,Neutral,Low,0.41,3,2,0,0.666666667,0,0.41,3,0,,0,0.006141249,0,D
+HSC ,Jasmeet Singh,6125,Strong,Bronze Mine,Mixed User,Somewhat Ethical,Neutral,Medium,0.633333333,8,7,4,0.875,0.571428571,0.633333333,8,5000,,0.571428571,0.016376663,0.041237113,C
+Pusrawi ,Azmi Abd Latif ,6292,Low,Gold Mine,Pro-Competitor (Includes Lost Accounts),Low Ethics,Skeptical,Weak,0.446666667,16,12,0,0.75,0,0.446666667,16,0,,0,0.032753327,0,B
+Pusrawi ,Mohd Ismail,117,Low,Bronze Mine,Pro-Competitor (Includes Lost Accounts),Low Ethics,Skeptical,Weak,0.286666667,4,2,0,0.5,0,0.286666667,4,0,,0,0.008188332,0,B
+Pusrawi ,Zanariah Othman,668,Weak,Abandoned Mine,Pro-Competitor (Includes Lost Accounts),No Ethics,Skeptical,Weak,0.176666667,1,0,0,0,0,0.176666667,1,0,,0,0.002047083,0,B
+KPJ Perdana,Shamsul Kahar ,16749,Medium,Silver Mine,Mixed User,Somewhat Ethical,Neutral,Medium,0.666666667,13,10,2,0.769230769,0.2,0.666666667,13,2500,,0.2,0.026612078,0.020618557,C
+KPJ Perdana,Ahmad Sallehuddin,6474,Medium,Silver Mine,Trialist,Somewhat Ethical,Neutral,Medium,0.593333333,12,8,2,0.666666667,0.25,0.593333333,12,2500,,0.25,0.024564995,0.020618557,C
+Kota Bharu Med Ctr ,Abang Yak ,2915,Weak,Abandoned Mine,Trialist,Low Ethics,Skeptical,Weak,0.26,4,2,0,0.5,0,0.26,4,0,,0,0.008188332,0,B
+Kuala Terengganuu Specialist,Ahmad Zohri,4407,Weak,Abandoned Mine,Trialist,Low Ethics,Skeptical,Weak,0.26,6,3,0,0.5,0,0.26,6,0,,0,0.012282497,0,B

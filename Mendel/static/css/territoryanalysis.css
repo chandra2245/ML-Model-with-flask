@@ -1,0 +1,152 @@
+  svg {
+    font: 16px sans-serif;
+  }
+  .bar rect {
+    shape-rendering: crispEdges;
+  }
+  .axis path, .axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+  }
+  .line {
+    fill: none;
+    stroke: #cc0000;
+    stroke-width: 3.0px;
+  }
+    
+  .data-line {
+    fill: none;
+    stroke:  #cc0000;
+    stroke-width: 3.0px;
+  }
+
+  .data-circle  {
+    fill:  #cc0000;
+
+  }
+  
+  .tooltips {
+  position: absolute;
+  display: none;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 3px;
+  box-shadow: -3px 3px 15px #888;
+  color: white;
+  padding: 6px;
+}  
+
+.bartooltip {
+  position: absolute;
+  display: none;
+  color: white;
+  padding: 6px;
+  background-color:#ffffff;
+  border-radius: 20px;
+  box-shadow: -3px 3px 15px #888;
+}  
+
+
+#paretoChart {
+  width: 100%;
+}
+
+#paretoMain > * {
+
+  text-align: center;
+}
+#chartRow1 {
+ height:350px; 	
+}
+
+ #chartRow1 > * {
+  display:inline-block;
+  margin: auto;
+  text-align: center;
+} 
+
+#hbarChart, #hbarChart2 {
+    position: relative;
+    top: 40%;
+    height: 400px;
+	width:25%;
+    display: inline-block;
+}
+
+#LineChart {
+    position: relative;
+    top: 40%;
+    height: 350px;
+    display: inline-block;
+}
+
+.slice {
+   font-size: 12pt;
+   font-family: Verdana;
+   fill: white;
+   font-weight: bold;	
+   cursor: pointer;
+  		} 
+
+
+		
+#pieChart {    
+	position:relative;
+	left:10px;
+    height: 400px; 
+    display: inline-block;
+}
+
+
+.xlabels {
+    font-size: 13px;
+}
+
+.xlabelbar {
+    font-size: 12px;
+
+
+}
+
+.TOuter {
+  width: 100%;
+}
+
+.TOuter> *{
+  display:inline-block;
+  margin: auto;
+  text-align: center;
+}
+
+.TInner {
+ width: 19.5%;
+ color: #ffffff;
+ height: 180px;
+ background-color:#39ac6d;
+}
+
+.spInner{
+  font-size: 60px;
+}
+
+.sidelabel {
+ font-size: 12px;
+font-weight: bold;
+ color:#39ac6d;
+}
+
+#CallsChart > * {
+  display:inline-block;
+  margin: auto;
+  text-align: center;
+}
+
+
+.axisCSS {
+fill: none;
+stroke-width: 2;
+}
+
+.label{
+  font-size: 60%;
+}

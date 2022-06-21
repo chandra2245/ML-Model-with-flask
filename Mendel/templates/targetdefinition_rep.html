@@ -1,0 +1,150 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<html>
+<head>
+<!--<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">-->
+<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/bootstrap.min.3.3.6.css')}}">
+
+<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/button.css')}}">	
+<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/targetdefinition.css')}}">
+</head>
+<body>
+<div class="page-header">
+    <h2>Target Definition</h2>      
+  </div>
+ <br><br> 
+<form action="/targetdefinition" method="post">
+
+<div id="tblbox" class="outer">
+    <div id="divtbl1" class="inner">
+        	  <h4>Volume Scale Definition&nbsp;
+	  <div class="toolstips"><img src="{{url_for('static',filename='images/info.png')}}"height="20" width="20"/>
+      <span class="tooltiptexts">Targeting limit of each Sales Rep for that particular month</span>
+      </div>
+	  </h4>
+         	  <table id="dataTable1" border="1">
+               <tr>
+                   <th>Limit</th>
+                   <th>OA Patients per month</th>
+               </tr>
+			   	{% for potential in potential_volumes	%}
+				<tr>
+				    <td>{{potential.Limit}}</td>
+					<td>{{potential.OA_Patients}}</td>
+				</tr>
+				{% endfor %}
+            </table>
+  </div>
+  <div id="divtbl2" class="inner">
+             <h4>Segment Rank Definition&nbsp;
+	  <div class="toolstips"><img src="{{url_for('static',filename='images/info.png')}}"height="20" width="20"/>
+      <span class="tooltiptexts">Each HCP or Accounts are segmented using Key driving variables which will help the rep to understand the right HCP to target</span>
+      </div>
+	  </h4>
+            <table id="dataTable2" border="1">
+                <tr>
+                    <th>Rank</th>
+                    <th>Segment</th>
+                </tr>
+				{% for segment in segment_ranks	%}
+				<tr>
+				    <td>{{segment.Rank}}</td>
+					<td>{{segment.Segment}}</td>
+				</tr>
+				{% endfor %}
+            </table>
+  </div>
+
+  <div id="divtbl3" class="inner">
+      <h4>Market Share Categorization&nbsp;
+	  <div class="toolstips"><img src="{{url_for('static',filename='images/info.png')}}"height="20" width="20"/>
+      <span class="tooltiptexts">Categorizing HCP or Accounts into High, Medium and Low  based on preset Market share values. Current Category's limit range will be <= Previous Category</span>
+      </div>
+	  </h4>
+	  <table id="dataTable3" border="1">
+                <tr>
+                    <th>Category</th>
+                    <th>Limits</th>
+                </tr>
+				{% for market_share in market_share_cats	%}
+				<tr>
+				    <td>{{market_share.Category}}</td>
+					<td>{{market_share.Limits}}</td>
+				</tr>
+				{% endfor %}				
+     		</table>
+   </div>
+
+  <div id="divtbl4" class="inner">
+    <h4>Probability Drivers Rankings&nbsp;
+	  <div class="toolstips"><img src="{{url_for('static',filename='images/info.png')}}"height="20" width="20"/>
+      <span class="tooltiptexts">Categorizing each targeting criteria variable into High, Medium, Low and Weak by providing preset values to provide weightage for each target variable</span>
+      </div>
+	  </h4>
+     <table id="dataTable4" border="1">
+            <tr>
+                <th>Value Definition</th>
+                <th>Value</th>
+            </tr>
+			{% for driver in drivers_ranks	%}
+			<tr>
+			    <td>{{driver.Value_Definition}}</td>
+				<td>{{driver.Value}}</td>
+			</tr>
+			{% endfor %}	
+        </table>
+   </div>
+</div>   
+<br><br>
+
+<div id="divtbl5" name="divtbl5" >
+    <h4>Probability Drivers Definition&nbsp;
+	  <div class="toolstips"><img src="{{url_for('static',filename='images/info.png')}}"height="20" width="20"/>
+      <span class="tooltiptexts">The key driving variables are preset and based on which Clustering Activity is carried out for further analysis</span>
+      </div>
+	  </h4>
+	  <table id="dataTable5" border="1">
+			<tr>
+			   <th>Targeting Criteria</th>
+			   {% for driver in drivers_ranks	%}
+			   <th>{{driver.Value_Definition}}</th>
+			   {% endfor %}
+			   <th>Weight</th>
+			{% for drivers_definition in drivers_definitions	%}
+			<tr>
+			  <td>{{ drivers_definition.Targeting_Criteria }}</td>
+			  {% if drivers_definition.Driver_1 %}
+				 <td>{{drivers_definition.Driver_1}}</td>
+                    {% if drivers_definition.Driver_2 %}
+				        <td>{{drivers_definition.Driver_2}}</td>
+                        {% if drivers_definition.Driver_3 %}
+				            <td>{{drivers_definition.Driver_3}}</td>
+                            {% if drivers_definition.Driver_4 %}
+	                 			<td>{{drivers_definition.Driver_4}}</td>
+                                {% if drivers_definition.Driver_5 %}
+				                    <td>{{drivers_definition.Driver_5}}</td>
+                                    {% if drivers_definition.Driver_6 %}
+		                        		<td>{{drivers_definition.Driver_6}}</td>
+                                        {% if drivers_definition.Driver_7 %}
+                              				<td>{{drivers_definition.Driver_7}}</td>
+            							{% endif %}
+            						{% endif %}
+            					{% endif %}	
+            				{% endif %}
+            			{% endif %}
+            		{% endif %}
+          		{% endif %}
+			  <td>{{ drivers_definition.Weight }}</td>
+			</tr>
+			{% endfor %}
+			
+        </table>
+</div>
+
+<br><br>
+
+
+</body>
+</html>
+{% endblock content %}

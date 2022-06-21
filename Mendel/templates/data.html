@@ -1,0 +1,709 @@
+{% extends "layout.html" %}
+{% block content %}
+<html>
+<head>
+<!--<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">-->
+<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/bootstrap.min.3.3.6.css')}}">
+
+<!--<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css">-->
+<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/bootstrap-datetimepicker.min.css')}}">
+
+<!--<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/bootstrap3.css')}}">-->
+
+
+<!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>-->
+<script src="{{ url_for('static', filename='js/jquery-3.3.1.slim.min.js') }}"></script>
+
+<!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js"></script>-->
+<script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.4.1.2.js') }}"></script>
+
+<!--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
+<script type="text/javascript" src="{{ url_for('static', filename='js/jquery.js') }}"></script> 
+
+<!--<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment.min.js"></script>-->
+<script type="text/javascript" src="{{ url_for('static', filename='js/moment.min.js') }}"></script>
+
+<!--<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>-->
+<script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.3.3.6.js') }}"></script>
+
+
+<!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>-->
+<script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap-datetimepicker.min.js') }}"></script>
+
+<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/button.css')}}">
+<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/data.css')}}">	
+<script type="text/javascript">
+    $(function () {
+        $('#datetimepicker6').datetimepicker();
+        $('#datetimepicker7').datetimepicker({
+            useCurrent: false //Important! See issue #1075
+			
+        });
+        $("#datetimepicker6").on("dp.change", function (e) {
+            $('#datetimepicker7').data("DateTimePicker").minDate(e.date);
+        });
+        $("#datetimepicker7").on("dp.change", function (e) {
+            $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
+        });
+    });
+</script>
+<script>
+    function allowDrop(ev) {
+        ev.preventDefault();
+    }
+    
+    function drag(ev) {
+        ev.dataTransfer.setData("text", ev.target.id);
+    }
+    
+    function drop(ev, el) {
+      ev.preventDefault();
+      var data = ev.dataTransfer.getData("text");
+      el.appendChild(document.getElementById(data));
+    }
+      	
+     function accountsave(){
+     	var parent = document.getElementById("A1");
+        var child = parent.childNodes[0];
+        var child2 = child.childNodes[1];
+     	    console.info(child2.innerHTML);
+    } 	
+      	
+</script>
+<script type=text/javascript>
+$(function() {
+			  $('#repemail').bind('change', function() {
+				$.getJSON('/user_exist', {
+				  useremail: $("#repemail").val(),				  				  
+				}, function(data) {
+                  $("#rep_text").html(data.output_text);
+
+				});
+				return false;
+			  });
+$("#update_button").click(function(){
+				$.getJSON('/datatab_filter', {
+				  Initial_date: $("#Initial_date").val(),
+				  Final_date: $("#Final_date").val(),
+				  Rep_Names: $("#Rep_Names").val(),
+}, function(data) {
+	             $("#Loaded_Accounts").css("display","block");
+	             var tabledata= data
+                 console.log(Object.keys(tabledata)	);
+                 
+                 // EXTRACT VALUE FOR HTML HEADER. 
+                 var col = [];
+                 for (var i = 0; i < tabledata.length; i++) {
+                    for (var key in tabledata[i]) {
+                        if (col.indexOf(key) === -1) {
+                           col.push(key);
+                        }
+                    }
+                 }
+                console.log(col);
+                
+                  // CREATE DYNAMIC TABLE.
+                 var table = document.createElement("table");
+
+                // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
+
+                 var tr = table.insertRow(-1);                   // TABLE ROW.
+
+                 for (var i = 0; i < col.length; i++) {
+                     var th = document.createElement("th");      // TABLE HEADER.
+                     th.innerHTML = col[i];
+                     tr.appendChild(th);
+                  }
+
+                  // ADD JSON DATA TO THE TABLE AS ROWS.
+                  for (var i = 0; i < tabledata.length; i++) {
+            
+                      tr = table.insertRow(-1);
+            
+                      for (var j = 0; j < col.length; j++) {
+                          var tabCell = tr.insertCell(-1);
+                          tabCell.innerHTML = tabledata[i][col[j]];
+                      }
+                  }
+            
+                  // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
+                  var divContainer = document.getElementById("showData");
+                  divContainer.innerHTML = "";
+                  divContainer.appendChild(table);
+              
+                 
+				});
+				return false;
+
+
+
+
+
+}); 
+    $("#repmapping").click(function(){
+        $("#filetype").val("Rep Mapping");
+        $("#fileuploadpopup").text("Upload Rep Mapping File");
+        $("#popup1file").css("display", "block");
+    });
+    $("#call").click(function(){
+        $("#filetype").val("Call");
+        $("#fileuploadpopup").text("Upload Call File");
+        $("#popup1file").css("display", "block");
+    });
+    $("#contentid1").click(function(){
+        $("#popup1file").css("display", "none");
+    });
+    
+    $("#call_sample").click(function(){
+        $("#filetype").val("Call Sample");
+        $("#fileuploadpopup").text("Upload Call Sample File");
+        $("#popup1file").css("display", "block");
+    });
+    $("#affiliation").click(function(){
+        $("#filetype").val("Affiliation");
+        $("#fileuploadpopup").text("Upload Affiliation File");
+        $("#popup1file").css("display", "block");
+    });
+    $("#pres").click(function(){
+        $("#filetype").val("Prescription");
+        $("#fileuploadpopup").text("Upload Prescription File");
+        $("#popup1file").css("display", "block");
+    });
+    $( document ).ready(function() {
+        var filename='{{ filename }}';
+        if(filename!=""){
+    	    $("#mappingpopup").text('Create Mapping for {{filename}} file');
+        }
+        else{
+    	    $("#mappingpopup").text('First Upload the file!!!!');
+        }
+    });
+    $("#process_inputC").click(function(){
+      	if((typeof $("#C1").find("h5").html()==="undefined")||(typeof $("#C2").find("h5").html()==="undefined")||(typeof $("#C3").find("h5").html()==="undefined")||(typeof $("#C4").find("h5").html()==="undefined")||(typeof $("#C5").find("h5").html()==="undefined")||(typeof $("#C6").find("h5").html()==="undefined")||(typeof $("#C7").find("h5").html()==="undefined")||(typeof $("#C8").find("h5").html()==="undefined")||(typeof $("#C9").find("h5").html()==="undefined")||(typeof $("#C10").find("h5").html()==="undefined")||(typeof $("#C11").find("h5").html()==="undefined")||(typeof $("#C12").find("h5").html()==="undefined")||(typeof $("#C13").find("h5").html()==="undefined")||(typeof $("#C14").find("h5").html()==="undefined")||(typeof $("#C15").find("h5").html()==="undefined")){
+            $("#alert_message").html("All fields not mapped!!!!");
+            $("#alert_message").css('color', 'red');
+        }else{
+            $("#alert_message").html("Data being processed!!!!");
+            $("#alert_message").css('color', 'blue');    
+  
+            $.getJSON('/input_account_process', {
+            	  FileType: '{{ filename }}',
+	  			  Call1: $("#C1").find("h5").html(),
+	  			  Call2: $("#C2").find("h5").html(),
+	  			  Call3: $("#C3").find("h5").html(),
+	  			  Call4: $("#C4").find("h5").html(),
+	  			  Call5: $("#C5").find("h5").html(),
+	  			  Call6: $("#C6").find("h5").html(),
+	  			  Call7: $("#C7").find("h5").html(),
+	  			  Call8: $("#C8").find("h5").html(),
+	  			  Call9: $("#C9").find("h5").html(),
+	  			  Call10: $("#C10").find("h5").html(),
+	  			  Call11: $("#C11").find("h5").html(),
+	  			  Call12: $("#C12").find("h5").html(),
+	  			  Call13: $("#C13").find("h5").html(),
+	  			  Call14: $("#C14").find("h5").html(),
+	  			  Call15: $("#C15").find("h5").html(),
+                },function(data){
+                	
+                });   
+            $("#alert_message").html("Data load Complete!!!!");
+            $("#alert_message").css('color', 'blue');      
+               return false;
+          }
+    });
+    $("#process_inputCS").click(function(){
+      	if((typeof $("#CS1").find("h5").html()==="undefined")||(typeof $("#CS2").find("h5").html()==="undefined")||(typeof $("#CS3").find("h5").html()==="undefined")||(typeof $("#CS4").find("h5").html()==="undefined")||(typeof $("#CS5").find("h5").html()==="undefined")||(typeof $("#CS6").find("h5").html()==="undefined")){
+            $("#alert_message").html("All fields not mapped!!!!");
+            $("#alert_message").css('color', 'red');
+        }else{
+            $("#alert_message").html("Data being processed!!!!");
+            $("#alert_message").css('color', 'blue');    
+  
+            $.getJSON('/input_account_process', {
+            	  FileType: '{{ filename }}',
+	  			  CallSample1: $("#CS1").find("h5").html(),
+	  			  CallSample2: $("#CS2").find("h5").html(),
+	  			  CallSample3: $("#CS3").find("h5").html(),
+	  			  CallSample4: $("#CS4").find("h5").html(),
+	  			  CallSample5: $("#CS5").find("h5").html(),
+	  			  CallSample6: $("#CS6").find("h5").html(),
+
+                },function(data){
+                	
+                });
+             window.location.replace('{{ url_for("data.dataurl")}}');    
+            $("#alert_message").html("Data load Complete!!!!");
+            $("#alert_message").css('color', 'blue');      
+               return false;
+          }
+    });  
+    $("#process_inputAFF").click(function(){
+      	if((typeof $("#AFF1").find("h5").html()==="undefined")||(typeof $("#AFF2").find("h5").html()==="undefined")||(typeof $("#AFF3").find("h5").html()==="undefined")||(typeof $("#AFF4").find("h5").html()==="undefined")){
+            $("#alert_message").html("All fields not mapped!!!!");
+            $("#alert_message").css('color', 'red');
+        }else{
+            $("#alert_message").html("Data being processed!!!!");
+            $("#alert_message").css('color', 'blue');    
+  
+            $.getJSON('/input_account_process', {
+            	  FileType: '{{ filename }}',
+	  			  Affiliation1: $("#AFF1").find("h5").html(),
+	  			  Affiliation2: $("#AFF2").find("h5").html(),
+	  			  Affiliation3: $("#AFF3").find("h5").html(),
+	  			  Affiliation4: $("#AFF4").find("h5").html(),
+
+
+                },function(data){
+                	
+                });
+                
+            $("#alert_message").html("Data load Complete!!!!");
+            $("#alert_message").css('color', 'blue'); 
+            window.location.replace('{{ url_for("data.dataurl")}}');     
+               return false;
+          }
+    });   
+    $("#process_inputP").click(function(){
+      	if((typeof $("#P1").find("h5").html()==="undefined")||(typeof $("#P2").find("h5").html()==="undefined")||(typeof $("#P3").find("h5").html()==="undefined")||(typeof $("#P4").find("h5").html()==="undefined")||(typeof $("#P5").find("h5").html()==="undefined")||(typeof $("#P6").find("h5").html()==="undefined")||(typeof $("#P7").find("h5").html()==="undefined")||(typeof $("#P8").find("h5").html()==="undefined")||(typeof $("#P9").find("h5").html()==="undefined")||(typeof $("#P10").find("h5").html()==="undefined")||(typeof $("#P11").find("h5").html()==="undefined")||(typeof $("#P12").find("h5").html()==="undefined")||(typeof $("#P13").find("h5").html()==="undefined")||(typeof $("#P14").find("h5").html()==="undefined")||(typeof $("#P15").find("h5").html()==="undefined")||(typeof $("#P16").find("h5").html()==="undefined")||(typeof $("#P17").find("h5").html()==="undefined")||(typeof $("#P18").find("h5").html()==="undefined")){
+            $("#alert_message").html("All fields not mapped!!!!");
+            $("#alert_message").css('color', 'red');
+        }else{
+            $("#alert_message").html("Data being processed!!!!");
+            $("#alert_message").css('color', 'blue');    
+  
+            $.getJSON('/input_account_process', {
+            	  FileType: '{{ filename }}',
+	  			  P1: $("#P1").find("h5").html(),
+	  			  P2: $("#P2").find("h5").html(),
+	  			  P3: $("#P3").find("h5").html(),
+	  			  P4: $("#P4").find("h5").html(),
+	  			  P5: $("#P5").find("h5").html(),
+	  			  P6: $("#P6").find("h5").html(),
+	  			  P7: $("#P7").find("h5").html(),
+	  			  P8: $("#P8").find("h5").html(),
+	  			  P9: $("#P9").find("h5").html(),
+	  			  P10: $("#P10").find("h5").html(),
+	  			  P11: $("#P11").find("h5").html(),
+	  			  P12: $("#P12").find("h5").html(),
+	  			  P13: $("#P13").find("h5").html(),
+	  			  P14: $("#P14").find("h5").html(),
+	  			  P15: $("#P15").find("h5").html(),
+	  			  P16: $("#P16").find("h5").html(),
+	  			  P17: $("#P17").find("h5").html(),
+  			  	  P18: $("#P18").find("h5").html(),			 
+	  			  
+                },function(data){
+                	
+                });
+                
+            $("#alert_message").html("Data load Complete!!!!");
+            $("#alert_message").css('color', 'blue'); 
+            window.location.replace('{{ url_for("data.dataurl")}}');     
+               return false;
+          }
+    }); 
+     
+});
+</script>	
+</head>
+<body>
+<div class="page-header">
+  <h2>Data Tab</h2>      
+</div>
+<!--<h1 ><a  href="#popup5">Rep Mapping</a></h1>-->
+
+
+<h1 ><a  href="#popup1">Upload File</a></h1>
+
+<h1><a  href="#popup3">Download Data</a></h1>
+
+<h1><a  href="#popup4">View Account Data</a></h1>
+
+
+<div id="popup1" class="overlay">
+	<div class="popup">
+		<h2>Select the file type</h2>
+		 <div class="box">
+		    <button class="button" id="repmapping">Rep Mapping</button>
+	        <button class="button" id="call">Call</button>
+	        <button class="button" id="call_sample">Call Sample</button>
+	        <button class="button" id="affiliation">Affiliation</button>
+            <button class="button" id="pres">Prescription</button>
+        </div>
+
+		<a class="close" id="contentid1" href="#">&times;</a>
+		<br>
+    
+        <div class="content" id="popup1file" style="display:none;">
+           <h2 id="fileuploadpopup"></h2>
+	       <form method=post enctype=multipart/form-data action="/fileupload">
+             	 <div class="col-md-4">
+             	    <input type=file id=file name=file class="button">
+                    <input type="hidden" id="filetype" name="filetype">
+                 </div>
+                 <div class="col-md-2">          
+                      <input type="text" class="button" id="delimiter" placeholder="Enter Delimiter (*)" required></Input>
+                 </div> 
+                 <div class="col-md-2">          
+                      <input type="text" class="button" id="dateformat" placeholder="Enter Date Format" ></Input>
+                 </div> 				 
+                 <div class="col-md-2">          
+                      <input class="button" id="fileuploadbutton" type=submit value=Upload></Input>
+                 </div>  	     
+           </form>
+		</div>
+	</div>
+</div>
+<div id="popup2" class="overlay">
+	<div class="popup">
+		<h2 id="mappingpopup"></h2>
+		<a class="close" href="#">&times;</a>
+		<br>
+        <div class="content">
+            {% if filename=='Call' %}	
+            <h4>Drag from right and drop to left to Configure</h4>
+            <br><br>
+            <div class="col-md-8" style="max-height: 600px; overflow-y: auto;">	
+                <div class="form-row">
+                   <div class="form-group col-md-4"><label>Activity Month</label></div>
+                   <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="C1"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4"><label>Display Brand Name</label></div>
+                    <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="C2"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4"><label>Display Franchise Name</label></div>
+                     <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="C3"></div>
+                </div>
+                <div class="form-row">
+                   <div class="form-group col-md-4"><label>Branded/Unbranded</label></div>
+                   <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="C4"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4"><label>Call Identifier</label></div>
+                    <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="C5"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4"><label>Customer Id</label></div>
+                     <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="C6"></div>
+                </div>
+                <div class="form-row">
+                   <div class="form-group col-md-4"><label>Parent Call Identifier</label></div>
+                   <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="C7"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4"><label>Call Detail</label></div>
+                    <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="C8"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4"><label>Account Type</label></div>
+                     <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="C9"></div>
+                </div> 
+                <div class="form-row">
+                   <div class="form-group col-md-4"><label>Account Specialty</label></div>
+                   <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="C10"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4"><label>Rep Employee Code</label></div>
+                    <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="C11"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4"><label>Rep Territory Number</label></div>
+                     <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="C12"></div>
+                </div>
+                <div class="form-row">
+                   <div class="form-group col-md-4"><label>Call Detail Count</label></div>
+                   <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="C13"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4"><label>Market Detail Count</label></div>
+                    <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="C14"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4"><label>Rep Full Name</label></div>
+                     <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="C15"></div>
+                </div>                                               
+                <div class="form-row">
+                     <span id="alert_message"></span>
+                </div>
+                <div class="form-row">
+                    <button class='button' id="process_inputC">Save</button>
+                </div>
+            </div>
+
+
+     	    <div class="col-md-3 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" style="max-height: 500px; overflow-y: auto;">
+	       	    {% for col in columns %}
+                <div id='list{{col}}' class="list" draggable="true" ondragstart="drag(event)">
+                    <h5 class="list-title">{{col}}</h5>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% if filename=='Call Sample' %}	
+            <h4>Drag from right and drop to left to Configure</h4>
+            <br><br>
+            <div class="col-md-8" style="max-height: 600px; overflow-y: auto;">	
+                <div class="form-row">
+                   <div class="form-group col-md-4"><label>Customer Id</label></div>
+                   <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="CS1"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4"><label>Sample Type</label></div>
+                    <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="CS2"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4"><label>Derived Call Id</label></div>
+                     <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="CS3"></div>
+                </div>
+                <div class="form-row">
+                   <div class="form-group col-md-4"><label>Date Period</label></div>
+                   <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="CS4"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4"><label>Territory Id</label></div>
+                    <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="CS5"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4"><label>Sample Quantity</label></div>
+                     <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="CS6"></div>
+                </div>
+                <div class="form-row">
+                     <span id="alert_message"></span>
+                </div>
+                <div class="form-row">
+                    <button class='button' id="process_inputCS">Save</button>
+                </div>
+            </div>
+
+
+     	    <div class="col-md-3 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" style="max-height: 500px; overflow-y: auto;">
+	       	    {% for col in columns %}
+                <div id='list{{col}}' class="list" draggable="true" ondragstart="drag(event)">
+                    <h5 class="list-title">{{col}}</h5>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% if filename=='Affiliation' %}	
+            <h4>Drag from right and drop to left to Configure</h4>
+            <br><br>
+            <div class="col-md-8" style="max-height: 600px; overflow-y: auto;">	
+                <div class="form-row">
+                   <div class="form-group col-md-4"><label>Parent Account Id</label></div>
+                   <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="AFF1"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4"><label>Child Account Id</label></div>
+                    <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="AFF2"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4"><label>Customer Id</label></div>
+                     <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="AFF3"></div>
+                </div>
+                <div class="form-row">
+                   <div class="form-group col-md-4"><label>Affilaition Type</label></div>
+                   <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="AFF4"></div>
+                </div>
+                <div class="form-row">
+                     <span id="alert_message"></span>
+                </div>
+                <div class="form-row">
+                    <button class='button' id="process_inputAFF">Save</button>
+                </div>
+            </div>
+            <div class="col-md-3 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" style="max-height: 500px; overflow-y: auto;">
+	       	    {% for col in columns %}
+                <div id='list{{col}}' class="list" draggable="true" ondragstart="drag(event)">
+                    <h5 class="list-title">{{col}}</h5>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %} 
+            {% if filename=='Prescription' %}	
+            <h4>Drag from right and drop to left to Configure</h4>
+            <br><br>
+            <div class="col-md-8" style="max-height: 600px; overflow-y: auto;">	
+                <div class="form-row">
+                   <div class="form-group col-md-4"><label>Customer Id</label></div>
+                   <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="P1"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4"><label>Customer Type</label></div>
+                    <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="P2"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4"><label>Specialty Code</label></div>
+                     <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="P3"></div>
+                </div>
+                <div class="form-row">
+                   <div class="form-group col-md-4"><label>Product Group</label></div>
+                   <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="P4"></div>
+                </div>
+                <div class="form-row">
+                   <div class="form-group col-md-4"><label>Product Brand</label></div>
+                   <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="P5"></div>
+                </div>
+                <div class="form-row">
+                   <div class="form-group col-md-4"><label>NRX MONTH 1</label></div>
+                   <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="P6"></div>
+                </div>
+                <div class="form-row">
+                   <div class="form-group col-md-4"><label>NRX MONTH 2</label></div>
+                   <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="P7"></div>
+                </div>
+                <div class="form-row">
+                   <div class="form-group col-md-4"><label>NRX MONTH 3</label></div>
+                   <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="P8"></div>
+                </div>
+                <div class="form-row">
+                   <div class="form-group col-md-4"><label>NRX MONTH 4</label></div>
+                   <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="P9"></div>
+                </div>                
+                <div class="form-row">
+                   <div class="form-group col-md-4"><label>NRX MONTH 5</label></div>
+                   <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="P10"></div>
+                </div>
+                <div class="form-row">
+                   <div class="form-group col-md-4"><label>NRX MONTH 6</label></div>
+                   <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="P11"></div>
+                </div>                
+                <div class="form-row">
+                   <div class="form-group col-md-4"><label>TRX MONTH 1</label></div>
+                   <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="P12"></div>
+                </div>
+                <div class="form-row">
+                   <div class="form-group col-md-4"><label>TRX MONTH 2</label></div>
+                   <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="P13"></div>
+                </div>
+                <div class="form-row">
+                   <div class="form-group col-md-4"><label>TRX MONTH 3</label></div>
+                   <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="P14"></div>
+                </div>
+                <div class="form-row">
+                   <div class="form-group col-md-4"><label>TRX MONTH 4</label></div>
+                   <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="P15"></div>
+                </div>                
+                <div class="form-row">
+                   <div class="form-group col-md-4"><label>TRX MONTH 5</label></div>
+                   <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="P16"></div>
+                </div>
+                <div class="form-row">
+                   <div class="form-group col-md-4"><label>TRX MONTH 6</label></div>
+                   <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="P17"></div>
+                </div>       
+                <div class="form-row">
+                   <div class="form-group col-md-4"><label>Data Date</label></div>
+                   <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="P18"></div>
+                </div>                           
+                <div class="form-row">
+                     <span id="alert_message"></span>
+                </div>
+                <div class="form-row">
+                    <button class='button' id="process_inputP">Save</button>
+                </div>
+            </div>
+            <div class="col-md-3 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" style="max-height: 500px; overflow-y: auto;">
+	       	    {% for col in columns %}
+                <div id='list{{col}}' class="list" draggable="true" ondragstart="drag(event)">
+                    <h5 class="list-title">{{col}}</h5>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}                    
+        </div>
+	</div>
+</div>
+
+<div id="popup3" class="overlay">
+	<div class="popup">
+		<h2>Select the file type</h2>
+		 <div class="box">
+	        <a class="button" href="/dataupload/download_call" id="call_download">Call</a>
+	        <a class="button" href="/dataupload/download_callsample" id="call_sample_download">Call Sample</a>
+	        <a class="button" href="/dataupload/download_affiliation" id="affiliation_download">Affiliation</a>
+	        <a class="button" href="/dataupload/download_prescription" id="prescription_download">Prescription</a>
+        </div>
+
+		<a class="close" id="contentid1" href="#">&times;</a>
+		<br>
+    
+
+	</div>
+</div>
+
+<div id="popup4" class="overlay">
+  <div class="popup">
+   <h2>Account Data</h2>
+   <div class="row">
+    <div class='col-md-4'>
+         <select name="Rep_Names" id="Rep_Names" class="btn btn-primary">
+			  <option value="">Select Sales Rep</option>  
+		      {% for rep in reps	%}
+				<option value="{{rep}}">{{rep}}</option>
+              {% endfor %}
+              <option value="All">All</option>
+        </select>
+	</div>
+	    <div class='col-md-3'>
+        
+            <div class='input-group date' id='datetimepicker6'>
+                <input type='text' class="form-control" id="Initial_date"/>
+                <span class="input-group-addon btn btn-primary">Start Date
+                </span>
+            </div>
+    </div>
+    <div class='col-md-3'>
+      
+            <div class='input-group date' id='datetimepicker7'>
+                <input type='text' class="form-control" id="Final_date"/>
+                <span class="input-group-addon btn btn-primary">End Date
+                </span>
+            </div>
+      
+    </div>	
+     <div class='col-md-2'>
+     <button type="button" id="update_button" class="btn btn-primary">Update</button>
+	</div>
+	<a class="close" id="contentid1" href="#">&times;</a>
+   </div>
+  </div>
+</div> 
+ 
+<div id="popup5" class="overlay">
+  <div class="popup">
+   <h2>Enter Rep email id to Map</h2>
+   <br>
+   <div class='container'>
+    <form method=post action="/repmap">
+                 <div class="col-md-3">          
+                      <input type="text" class="button" id="repemail" name="repemail" placeholder="Enter email" required></Input>
+                 </div> 				 
+                 <div class="col-md-2">          
+                      <input class="button" type=submit value=Submit>
+                 </div>  	
+      </form>
+                 <div class="col-md-4">          
+                         <span id='rep_text' name='rep_text'></span>
+                 </div> 
+    <a class="close" id="contentid1" href="#">&times;</a>
+   </div>
+  </div>
+</div> 
+
+
+
+ <br><br>  
+<div id="Loaded_Accounts" style="display:none;">
+<h3>Loaded Accounts</h3>
+<a href="/data/download_file" id="data_download"><img src="{{url_for('static',filename='images/csv_icon.png')}}"  width="30" height="30"></a>
+
+</div>  
+
+
+ 
+    <div id="showData" style="overflow:auto;"></div>
+</body>
+</html>
+{% endblock content %}

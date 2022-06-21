@@ -1,0 +1,84 @@
+{% extends "layout.html" %}
+
+
+{% block content %}
+<html>
+
+<head>
+
+<!--<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">-->
+<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/bootstrap.min.3.3.6.css')}}">
+
+<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/actionplan.css')}}">
+<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/button.css')}}">	
+
+<!--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
+<script type="text/javascript" src="{{ url_for('static', filename='js/jquery.js') }}"></script> 
+
+
+</head>
+
+<body>
+ <div class="page-header">
+    <h2>Action Plan</h2>      
+  </div>
+<br><br>
+<form action="/goalstrategyurl" method="post">        
+<div id="outTable1">
+	
+      <table id="outputTable1"  border="1">
+
+         <tr>
+
+
+
+        <th>Account ID</th>
+		<th>Account Name</th> 
+		<th>Health Groups</th>
+		<th>Market Share in Account</th>
+		<th>Percentage of Territory Potential Sales</th>
+		<th>Propensity Score</th>
+		<th>Predicted Segment</th>
+		<th>Next Best Offer</th>
+		<th>Goal Strategy</th>
+		</tr>
+				 {% for account_var in account_vars %}
+		       {% for account in accounts %}
+		            {% if account.author.username==current_user.username%}
+					    {% if account_var.acc.id==account.id %}
+		<tr>
+			<td>{{ account.Account_ID}}</td>
+			<td><a href="\hcp360_2">{{ account.Account_Name}}</a></td>
+			<td>{{ account.Health_Groups}}</td>
+			<td>{{ Market_Share[loop.index-1]}}%</td>
+            <td>{{ Per_Potential_Sales[loop.index-1]}}%</td>
+			<td>{{ account_var.Prob_Score}}</td>
+			<td>{{ account_var.NBA_insights}}</td>
+			
+			<td align="left">{% autoescape false %}
+                      {{ insights[rand_numbers[loop.index-1]]}}
+                 {% endautoescape %}
+			</td>
+			{% if account_var.Goal_Strategy=='' or account_var.Goal_Strategy==None%}
+			<td class="StrategyBox"><input class="StrategyInput" type=text name="StrategyInput_{{loop.index}}" id="StrategyInput_{{loop.index}}" placeholder="Input Goal Strategy" /></td>
+		    {% else %}
+            <td class="StrategyBox"><input class="StrategyInput" type=text name="StrategyInput_{{loop.index}}" id="StrategyInput_{{loop.index}}" value="{{account_var.Goal_Strategy}}" /></td>
+		    {% endif %}
+		</tr>
+		              {% endif %}
+		         {% endif %}
+			{% endfor %}	 
+		{% endfor %}
+
+	</table>	
+</div>
+     <br><br>
+<div>	 
+	 <INPUT class="btn btn-primary" type="submit" id="Save" value="Update" />
+</div>
+</form>
+</body>
+
+</html>
+
+{% endblock content %}

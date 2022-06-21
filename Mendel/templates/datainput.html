@@ -1,0 +1,294 @@
+{% extends "layout.html" %}
+
+
+{% block content %}
+<html>
+
+<head>
+
+<!--<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">-->
+<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/bootstrap.min.3.3.6.css')}}">
+
+<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/input.css')}}">
+<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/button.css')}}">	
+
+<!--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
+<script type="text/javascript" src="{{ url_for('static', filename='js/jquery.js') }}"></script> 
+
+<script type=text/javascript>
+			$(function() {
+			  $('a#process_input').bind('click', function() {
+			  console.log("reaaches");
+				$.getJSON('/background_process', {
+				  TargetingCriteria1: $("#TargetingCriteria1").val(),
+				  TargetingCriteria2: $("#TargetingCriteria2").val(),
+				  TargetingCriteria3: $("#TargetingCriteria3").val(),
+				  TargetingCriteria4: $("#TargetingCriteria4").val(),
+				  TargetingCriteria5: $("#TargetingCriteria5").val(),
+				  TargetingCriteria6: $("#TargetingCriteria6").val(),
+				  TargetingCriteria7: $("#TargetingCriteria7").val(),
+				  TargetingCriteria8: $("#TargetingCriteria8").val(),
+				  TargetingCriteria9: $("#TargetingCriteria9").val(),
+				  TargetingCriteria10: $("#TargetingCriteria10").val(),
+				  TargetingCriteria11: $("#TargetingCriteria11").val(),
+				  TargetingCriteria12: $("#TargetingCriteria12").val(),
+				  
+				  
+				  
+				  Value_Perception: $("#Value_Perception").val(),
+				  Potential_Value: $("#Potential_Value").val(),
+				  Competitor_Drug: $("#Competitor_Drug").val(),
+				  Selling_Drug: $("#Selling_Drug").val(),
+				  Actual_Sales: $("#Actual_Sales").val(),
+				  Target_Sales: $("#Target_Sales").val(),
+				  
+				}, function(data) {
+				  console.log("reaached");
+				  $("#Prob_Score").val(data.Prob_Score);
+				  $("#Competitive_Penitration").val(data.Competitive_Penitration);
+				  $("#Market_Share").val(data.Market_Share);	  
+				  $("#Percentage_Actual_Sales").val(data.Percentage_Actual_Sales);
+				  $("#Percentage_Potential_Sales").val(data.Percentage_Potential_Sales);
+				  $("#Segments").val(data.call_segment);
+
+				});
+				return false;
+			  });
+			});
+		</script>
+
+
+</head>
+
+<body>
+ <div class="page-header">
+    <h2>Data Input</h2>      
+  </div>
+<table id="QuotaTable" >
+  <tr>
+    <th>Territory Quota</th>
+    <td>{{ territory_quota}}</td>
+  </tr>
+  <tr>
+    <th>Actual Sales</th>
+    <td>{{target_sale}}</td>
+	</tr>
+  <tr>
+    <th>Territory Quota Attainment</th>
+	<td>{{territory_quota_att}}</td>
+  </tr>
+</table>
+<br>
+
+<h3>Profiling Input</h3>
+
+
+
+
+<form action="/datainputurl" method="post">
+<br>
+    <div id="Table1" style="overflow:auto;">
+	
+      <table id="dataTable1"  border="1">
+
+         <tr>
+
+        <th>NPI ID</th>
+        <th>Health Groups</th>
+        <th>HCP/ Account ID</th>
+		<th>HCP/ Account Name</th>       
+       {% for drivers_definition in drivers_definitions	%}
+		       <th>{{ drivers_definition.Targeting_Criteria }}</th>
+		   
+		   {% endfor %}
+        <th>Total Potential Value</th>
+        <th>Patients Treated With Selling Drug</th>
+		<th>Patients Treated With Competitor Drug</th>
+        <th>Actual Sales</th>
+		<th>Target Sales</th>	
+		</tr>
+		
+		<tr>
+		
+		<td><input type="text" name="NPI_ID" id="NPI_ID" required ></td>
+		<td><input type="text" name="Health_Groups" id="Health_Groups"  required ></td>
+		<td><input type="text" name="Account_ID" id="Account_ID" required ></td>
+		<td><input type="text" name="Account_Name" id="Account_Name" required ></td>
+	 	{% for drivers_definition in drivers_definitions	%}
+			   
+    		   <td>
+			<select name="TargetingCriteria{{loop.index}}" id="TargetingCriteria{{loop.index}}" required >
+			    <option value="">Select</option>  
+			    {% if drivers_definition.Driver_1 %}
+				    <option value="{{drivers_definition.Driver_1}}">{{drivers_definition.Driver_1}}</option>
+                    {% if drivers_definition.Driver_2 %}
+				        <option value="{{drivers_definition.Driver_2}}">{{drivers_definition.Driver_2}}</option>
+                        {% if drivers_definition.Driver_3 %}
+				            <option value="{{drivers_definition.Driver_3}}">{{drivers_definition.Driver_3}}</option>
+                            {% if drivers_definition.Driver_4 %}
+	                 			<option value="{{drivers_definition.Driver_4}}">{{drivers_definition.Driver_4}}</option>
+                                {% if drivers_definition.Driver_5 %}
+				                    <option value="{{drivers_definition.Driver_5}}">{{drivers_definition.Driver_5}}</option>
+                                    {% if drivers_definition.Driver_6 %}
+		                        		<option value="{{drivers_definition.Driver_6}}">{{drivers_definition.Driver_6}}</option>
+                                        {% if drivers_definition.Driver_7 %}
+                              				<option value="{{drivers_definition.Driver_7}}">{{drivers_definition.Driver_7}}</option>
+            							{% endif %}
+            						{% endif %}
+            					{% endif %}	
+            				{% endif %}
+            			{% endif %}
+            		{% endif %}
+          		{% endif %}	
+		    </td>
+		{% endfor %}	
+		<td><input type="text" name="Potential_Value" id="Potential_Value" required ></td>
+		<td><input type="text" name="Selling_Drug" id="Selling_Drug" required ></td>
+		<td><input type="text" name="Competitor_Drug" id="Competitor_Drug" required ></td>
+		<td><input type="text" name="Actual_Sales" id="Actual_Sales" required ></td>
+		<td><input type="text" name="Target_Sales" id="Target_Sales" required ></td>
+		</tr>
+
+       </table>
+	 </div>
+	 <br>
+	 <br>
+	 <div id="Table2">
+	    <table id="dataTable2"  border="1" align="center">
+           <tr>
+		       <th>Predicted Segment</th>
+               <th>Propensity Score</th>
+               <th>Competitive Drug Market Penitration </th>
+		       <th>Market Share In Account</th>
+               <th>Percentage Territory Potential Sales</th>
+		       <th>Percentage Territory Actual Sales</th>		
+		   </tr>
+		   <tr>
+		      <td><input type="text" name="Segments" id="Segments" required></td>
+	          <td><input type="text" name="Prob_Score" id="Prob_Score" required></td>
+			  <td><input type="text" name="Competitive_Penitration" id="Competitive_Penitration"  required></td>
+		      <td><input type="text" name="Market_Share" id="Market_Share"  required></td>
+		      <td><input type="text" name="Percentage_Potential_Sales" id="Percentage_Potential_Sales"  required></td>
+		      <td><input type="text" name="Percentage_Actual_Sales" id="Percentage_Actual_Sales" required></td>		
+		    </tr>
+        </table>
+    </div>
+<br>
+<a href=# id=process_input><button class='btn btn-primary'>Calculate</button></a>
+<INPUT class="btn btn-primary" type="submit" id="Save" value="Save" />
+</form>
+<br><br>
+<h3>Upload File<a href="/datainputurl/download_template" id="template_download"><img src="{{url_for('static',filename='images/doc.png')}}"  width="40" height="30"></a></h3>
+    <form method=post enctype=multipart/form-data action="/datainputfile">
+      <div class='row'>
+	  <div ><input type=file id=file name=file class="btn btn-primary"></div>
+      <div class="col-md-2"><input class="btn btn-primary" type=submit value=Upload></div>
+      </div>
+      </div>
+	</form>
+<br>
+<br>
+<div id="Loaded_Accounts">
+<h3>Accounts Summary</h3>
+<a href="/datainputurl/download_template" id="input_download"><img src="{{url_for('static',filename='images/csv_icon.png')}}"  width="30" height="30"></a>
+
+</div>
+<br>
+    <div id="outTable1">
+	
+      <table id="outputTable1"  border="1">
+
+         <tr>
+
+        <th>NPI ID</th>
+        <th>Health Groups</th>
+        <th>HCP/ Account ID</th>
+		<th>HCP/ Account Name</th> 
+           {% for drivers_definition in drivers_definitions	%}
+		       <th>{{ drivers_definition.Targeting_Criteria }}</th>
+		   
+		   {% endfor %}
+
+        <th>Total Potential Value</th>
+        <th>Patients Treated With Selling Drug</th>
+		<th>Patients Treated With Competitor Drug</th>
+        <th>Actual Sales</th>
+		<th>Target Sales</th>
+		<th>Propensity Score</th>
+		<th>Segment</th>
+		</tr>
+		 {% for account_var in account_vars %}
+		       {% for account in accounts %}
+		            {% if account.author.username==current_user.username%}
+					    {% if account_var.acc.id==account.id %}
+		<tr>
+            <td>{{ account.NPI_ID}}</td>
+			<td>{{ account.Health_Groups}}</td>
+			<td>{{ account.Account_ID}}</td>
+			<td>{{ account.Account_Name}}</td>
+			{% if account_var.TargetingCriteria1 %}
+			    <td>{{ account_var.TargetingCriteria1}}</td>
+			    {% if account_var.TargetingCriteria2 %}
+				    <td>{{ account_var.TargetingCriteria2}}</td>
+				    {% if account_var.TargetingCriteria3 %}
+			            <td>{{ account_var.TargetingCriteria3}}</td>
+					    {% if account_var.TargetingCriteria4 %}
+			                <td>{{ account_var.TargetingCriteria4}}</td>
+						    {% if account_var.TargetingCriteria5 %}
+			                    <td>{{ account_var.TargetingCriteria5}}</td>
+							    {% if account_var.TargetingCriteria6 %}
+							        <td>{{ account_var.TargetingCriteria6}}</td>
+								    {% if account_var.TargetingCriteria7 %}
+			                            <td>{{ account_var.TargetingCriteria7}}</td>
+			                            {% if account_var.TargetingCriteria8 %}
+						    			    <td>{{ account_var.TargetingCriteria8}}</td>
+											{% if account_var.TargetingCriteria9 %}
+									            <td>{{ account_var.TargetingCriteria9}}</td>
+										        {% if account_var.TargetingCriteria10 %}
+											        <td>{{ account_var.TargetingCriteria10 }}</td>
+												    {% if account_var.TargetingCriteria11 %}
+													 	<td>{{ account_var.TargetingCriteria11}}</td>
+														{% if account_var.TargetingCriteria12 %}
+												    		<td>{{ account_var.TargetingCriteria5}}</td>
+	                                                    {% endif %}
+	                                                {% endif %}
+    											{% endif %}
+    										{% endif %}
+    									{% endif %}
+    								{% endif %}
+    							{% endif %}
+    						{% endif %}
+    					{% endif %}	
+    				{% endif %}
+    			{% endif %}
+    		{% endif %}
+            <td>{{ account_var.Potential_Value}}</td>
+			<td>{{ account_var.Selling_Drug}}</td>
+			<td>{{ account_var.Competitor_Drug}}</td>
+			<td>{{ account_var.Actual_Sales}}</td>
+			<td>{{ account_var.Target_Sales}}</td>
+			<td>{{ account_var.Prob_Score}}</td>
+			<td>{{ account_var.NBA_insights}}</td>
+		</tr>
+		              {% endif %}
+		         {% endif %}
+			{% endfor %}	 
+		{% endfor %}
+	</table>
+  </div>	
+<br>		
+{% for table in tables %}
+            {{titles[loop.index]}}
+            {{ table|safe }}
+{% endfor %}
+
+
+		<div class='container'>
+		<p id=result></p>
+		</div>
+
+</body>
+
+</html>
+
+{% endblock content %}

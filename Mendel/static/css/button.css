@@ -1,0 +1,86 @@
+.btn-primary{
+ color:#fff;
+ font-size: 90%;
+ background-color:#40bf79;
+ border-color:#000000
+}
+
+.btn-primary.focus,.btn-primary:focus{
+ color:#fff;
+ background-color:#267349;
+ border-color:#000000
+}
+
+.btn-primary:hover{
+  color:#fff;
+  background-color:#267349;
+  border-color:#267349
+ }
+
+.btn-primary.active,.btn-primary:active,.open>.dropdown-toggle.btn-primary{
+ color:#fff;
+ background-color:#267349;
+ border-color:#267349}
+
+.btn-primary.active.focus,.btn-primary.active:focus,.btn-primary.active:hover,.btn-primary:active.focus,.btn-primary:active:focus,.btn-primary:active:hover,.open>.dropdown-toggle.btn-primary.focus,.open>.dropdown-toggle.btn-primary:focus,.open>.dropdown-toggle.btn-primary:hover{
+ color:#fff;
+ background-color:#267349;
+ border-color:#000000
+}
+
+.btn-primary.active,.btn-primary:active,.open>.dropdown-toggle.btn-primary{
+background-image:none
+}
+
+.btn-primary.disabled.focus,.btn-primary.disabled:focus,.btn-primary.disabled:hover,.btn-primary[disabled].focus,.btn-primary[disabled]:focus,.btn-primary[disabled]:hover,fieldset[disabled] .btn-primary.focus,fieldset[disabled] .btn-primary:focus,fieldset[disabled] .btn-primary:hover{
+background-color:#40bf79;
+border-color:#000000}
+
+.btn-primary .badge{
+color:#40bf79;
+background-color:#fff}
+
+.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
+    color: #fff;
+    background-color: #267349;
+    border-color: #000000;
+}
+
+body {
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    font-size: 16px;
+}	
+
+
+.toolstips {
+  position: relative;
+  display: inline-block;
+
+}
+
+.toolstips .tooltiptexts {
+  visibility: hidden;
+  width: 300px;
+  background-color: black;
+  color: #fff;
+  font-size: 14px;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 100%;
+  right: 50%;
+  left: 50%;
+  margin-left: -60px;
+  
+  /* Fade in tooltip - takes 1 second to go from 0% to 100% opac: */
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+.toolstips:hover .tooltiptexts {
+  visibility: visible;
+  opacity: 1;
+}
+

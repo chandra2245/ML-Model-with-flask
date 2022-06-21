@@ -1,0 +1,123 @@
+table {
+  border-collapse: collapse;
+  font-size: 14px;
+  width:100%;
+}
+
+th, td {
+  text-align: center;
+  padding: 5px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+tr:hover {background-color:#D0EDDE;}
+
+th {
+  background-color: #3cb371;
+  color: white;
+}
+
+.myButton {
+	background-color:#3cb371;
+	-moz-border-radius:28px;
+
+	border-radius:28px;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:17px;
+	padding: 14px 25px;
+	text-decoration:none;
+}
+.myButton:hover {
+	background-color:#12A55B;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+}
+
+.myButton:disabled {
+  background-color: #cccccc;
+  color: #666666;
+}
+
+.custom-select {
+  position: relative;
+  font-family: Arial;
+}
+
+.custom-select select {
+  display: none; /*hide original SELECT element:*/
+}
+
+.select-selected {
+  background-color: DodgerBlue;
+}
+
+/*style the arrow inside the select element:*/
+.select-selected:after {
+  position: absolute;
+  content: "";
+  top: 14px;
+  right: 10px;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-color: #fff transparent transparent transparent;
+}
+
+/*point the arrow upwards when the select box is open (active):*/
+.select-selected.select-arrow-active:after {
+  border-color: transparent transparent #fff transparent;
+  top: 7px;
+}
+
+/*style the items (options), including the selected item:*/
+.select-items div,.select-selected {
+  color: #ffffff;
+  padding: 8px 16px;
+  border: 1px solid transparent;
+  border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+  cursor: pointer;
+  user-select: none;
+}
+
+/*style items (options):*/
+.select-items {
+  position: absolute;
+  background-color: DodgerBlue;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 99;
+}
+
+/*hide the items when the select box is closed:*/
+.select-hide {
+  display: none;
+}
+
+.select-items div:hover, .same-as-selected {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+input, select{
+   width: 90;
+}
+
+
+table#QuotaTable,input#file {
+    width: inherit;
+}
+
+table#dataTable2 {
+	width: 80%;
+}	
+
+#Loaded_Accounts > * {
+  display:inline-block;
+
+}

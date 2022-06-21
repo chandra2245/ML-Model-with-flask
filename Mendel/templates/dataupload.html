@@ -1,0 +1,390 @@
+{% extends "layout.html" %}
+{% block content %}
+<html>
+<head>
+
+<!--<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">-->
+<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/bootstrap.min.3.3.6.css')}}">
+
+  <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
+   <script  src="{{ url_for('static', filename='js/jquery.min.3.4.1.js') }}"></script> 
+
+<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/button.css')}}">	
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/dataupload.css')}}">	
+
+<script>
+    function allowDrop(ev) {
+        ev.preventDefault();
+    }
+    
+    function drag(ev) {
+        ev.dataTransfer.setData("text", ev.target.id);
+    }
+    
+    function drop(ev, el) {
+      ev.preventDefault();
+      var data = ev.dataTransfer.getData("text");
+      el.appendChild(document.getElementById(data));
+    }
+      	
+     function accountsave(){
+     	var parent = document.getElementById("A1");
+        var child = parent.childNodes[0];
+        var child2 = child.childNodes[1];
+     	    console.info(child2.innerHTML);
+    } 	
+      	
+</script>
+<script type=text/javascript>
+$(function() {
+    $("#call").click(function(){
+        $("#filetype").val("Call");
+        $("#fileuploadpopup").text("Upload Call File");
+        $("#popup1file").css("display", "block");
+    });
+    $("#contentid1").click(function(){
+        $("#popup1file").css("display", "none");
+    });
+    
+    $("#call_sample").click(function(){
+        $("#filetype").val("Call Sample");
+        $("#fileuploadpopup").text("Upload Call Sample File");
+        $("#popup1file").css("display", "block");
+    });
+    $("#affiliation").click(function(){
+        $("#filetype").val("Affiliation");
+        $("#fileuploadpopup").text("Upload Affiliation File");
+        $("#popup1file").css("display", "block");
+    });
+    $( document ).ready(function() {
+        var filename='{{ filename }}';
+        if(filename!=""){
+    	    $("#mappingpopup").text('Create Mapping for {{filename}} file');
+        }
+        else{
+    	    $("#mappingpopup").text('First Upload the file!!!!');
+        }
+    });
+    $("#process_inputC").click(function(){
+      	if((typeof $("#C1").find("h5").html()==="undefined")||(typeof $("#C2").find("h5").html()==="undefined")||(typeof $("#C3").find("h5").html()==="undefined")||(typeof $("#C4").find("h5").html()==="undefined")||(typeof $("#C5").find("h5").html()==="undefined")||(typeof $("#C6").find("h5").html()==="undefined")||(typeof $("#C7").find("h5").html()==="undefined")||(typeof $("#C8").find("h5").html()==="undefined")||(typeof $("#C9").find("h5").html()==="undefined")||(typeof $("#C10").find("h5").html()==="undefined")||(typeof $("#C11").find("h5").html()==="undefined")||(typeof $("#C12").find("h5").html()==="undefined")||(typeof $("#C13").find("h5").html()==="undefined")||(typeof $("#C14").find("h5").html()==="undefined")||(typeof $("#C15").find("h5").html()==="undefined")){
+            $("#alert_message").html("All fields not mapped!!!!");
+            $("#alert_message").css('color', 'red');
+        }else{
+            $("#alert_message").html("Data being processed!!!!");
+            $("#alert_message").css('color', 'blue');    
+  
+            $.getJSON('/input_account_process', {
+            	  FileType: '{{ filename }}',
+	  			  Call1: $("#C1").find("h5").html(),
+	  			  Call2: $("#C2").find("h5").html(),
+	  			  Call3: $("#C3").find("h5").html(),
+	  			  Call4: $("#C4").find("h5").html(),
+	  			  Call5: $("#C5").find("h5").html(),
+	  			  Call6: $("#C6").find("h5").html(),
+	  			  Call7: $("#C7").find("h5").html(),
+	  			  Call8: $("#C8").find("h5").html(),
+	  			  Call9: $("#C9").find("h5").html(),
+	  			  Call10: $("#C10").find("h5").html(),
+	  			  Call11: $("#C11").find("h5").html(),
+	  			  Call12: $("#C12").find("h5").html(),
+	  			  Call13: $("#C13").find("h5").html(),
+	  			  Call14: $("#C14").find("h5").html(),
+	  			  Call15: $("#C15").find("h5").html(),
+                },function(data){
+                	
+                });
+            window.location.replace('{{ url_for("files.dataupload")}}');    
+            $("#alert_message").html("Data load Complete!!!!");
+            $("#alert_message").css('color', 'blue');      
+               return false;
+          }
+    });
+    $("#process_inputCS").click(function(){
+      	if((typeof $("#CS1").find("h5").html()==="undefined")||(typeof $("#CS2").find("h5").html()==="undefined")||(typeof $("#CS3").find("h5").html()==="undefined")||(typeof $("#CS4").find("h5").html()==="undefined")||(typeof $("#CS5").find("h5").html()==="undefined")||(typeof $("#CS6").find("h5").html()==="undefined")){
+            $("#alert_message").html("All fields not mapped!!!!");
+            $("#alert_message").css('color', 'red');
+        }else{
+            $("#alert_message").html("Data being processed!!!!");
+            $("#alert_message").css('color', 'blue');    
+  
+            $.getJSON('/input_account_process', {
+            	  FileType: '{{ filename }}',
+	  			  CallSample1: $("#CS1").find("h5").html(),
+	  			  CallSample2: $("#CS2").find("h5").html(),
+	  			  CallSample3: $("#CS3").find("h5").html(),
+	  			  CallSample4: $("#CS4").find("h5").html(),
+	  			  CallSample5: $("#CS5").find("h5").html(),
+	  			  CallSample6: $("#CS6").find("h5").html(),
+
+                },function(data){
+                	
+                });
+             window.location.replace('{{ url_for("files.dataupload")}}');    
+            $("#alert_message").html("Data load Complete!!!!");
+            $("#alert_message").css('color', 'blue');      
+               return false;
+          }
+    });  
+    $("#process_inputAFF").click(function(){
+      	if((typeof $("#AFF1").find("h5").html()==="undefined")||(typeof $("#AFF2").find("h5").html()==="undefined")||(typeof $("#AFF3").find("h5").html()==="undefined")||(typeof $("#AFF4").find("h5").html()==="undefined")){
+            $("#alert_message").html("All fields not mapped!!!!");
+            $("#alert_message").css('color', 'red');
+        }else{
+            $("#alert_message").html("Data being processed!!!!");
+            $("#alert_message").css('color', 'blue');    
+  
+            $.getJSON('/input_account_process', {
+            	  FileType: '{{ filename }}',
+	  			  Affiliation1: $("#AFF1").find("h5").html(),
+	  			  Affiliation2: $("#AFF2").find("h5").html(),
+	  			  Affiliation3: $("#AFF3").find("h5").html(),
+	  			  Affiliation4: $("#AFF4").find("h5").html(),
+
+
+                },function(data){
+                	
+                });
+                
+            $("#alert_message").html("Data load Complete!!!!");
+            $("#alert_message").css('color', 'blue'); 
+            window.location.replace('{{ url_for("files.dataupload")}}');     
+               return false;
+          }
+    });    
+});
+</script>
+</head>
+<body>
+<div class="page-header">
+  <h2>Data Upload</h2>      
+</div>
+
+<h1 ><a  href="#popup1">Upload File</a></h1>
+
+
+
+<h1><a  href="#popup2">Create Mapping</a></h1>
+
+
+<h1><a  href="#popup3">Download Data</a></h1>
+
+
+
+
+<div id="popup1" class="overlay">
+	<div class="popup">
+		<h2>Select the file type</h2>
+		 <div class="box">
+	        <button class="button" id="call">Call</button>
+	        <button class="button" id="call_sample">Call Sample</button>
+	        <button class="button" id="affiliation">Affiliation</button>
+        </div>
+
+		<a class="close" id="contentid1" href="#">&times;</a>
+		<br>
+    
+        <div class="content" id="popup1file" style="display:none;">
+           <h2 id="fileuploadpopup"></h2>
+	       <form method=post enctype=multipart/form-data action="/fileupload">
+             	 <div class="col-md-4">
+             	    <input type=file id=file name=file class="button">
+                    <input type="hidden" id="filetype" name="filetype">
+                 </div>  
+                 <div class="col-md-2">          
+                      <input class="button" type=submit value=Upload>
+                 </div>  	     
+           </form>
+		</div>
+	</div>
+</div>
+<div id="popup2" class="overlay">
+	<div class="popup">
+		<h2 id="mappingpopup"></h2>
+		<a class="close" href="#">&times;</a>
+		<br>
+        <div class="content">
+            {% if filename=='Call' %}	
+            <h4>Drag from right and drop to left to Configure</h4>
+            <br><br>
+            <div class="col-md-8" style="max-height: 600px; overflow-y: auto;">	
+                <div class="form-row">
+                   <div class="form-group col-md-4"><label>Activity Month</label></div>
+                   <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="C1"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4"><label>Display Brand Name</label></div>
+                    <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="C2"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4"><label>Display Franchise Name</label></div>
+                     <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="C3"></div>
+                </div>
+                <div class="form-row">
+                   <div class="form-group col-md-4"><label>Branded/Unbranded</label></div>
+                   <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="C4"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4"><label>Call Identifier</label></div>
+                    <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="C5"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4"><label>Customer Id</label></div>
+                     <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="C6"></div>
+                </div>
+                <div class="form-row">
+                   <div class="form-group col-md-4"><label>Parent Call Identifier</label></div>
+                   <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="C7"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4"><label>Call Detail</label></div>
+                    <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="C8"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4"><label>Account Type</label></div>
+                     <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="C9"></div>
+                </div> 
+                <div class="form-row">
+                   <div class="form-group col-md-4"><label>Account Specialty</label></div>
+                   <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="C10"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4"><label>Rep Employee Code</label></div>
+                    <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="C11"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4"><label>Rep Territory Number</label></div>
+                     <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="C12"></div>
+                </div>
+                <div class="form-row">
+                   <div class="form-group col-md-4"><label>Call Detail Count</label></div>
+                   <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="C13"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4"><label>Market Detail Count</label></div>
+                    <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="C14"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4"><label>Rep Full Name</label></div>
+                     <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="C15"></div>
+                </div>                                               
+                <div class="form-row">
+                     <span id="alert_message"></span>
+                </div>
+                <div class="form-row">
+                    <button class='button' id="process_inputC">Save</button>
+                </div>
+            </div>
+
+
+     	    <div class="col-md-3 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" style="max-height: 500px; overflow-y: auto;">
+	       	    {% for col in columns %}
+                <div id='list{{col}}' class="list" draggable="true" ondragstart="drag(event)">
+                    <h5 class="list-title">{{col}}</h5>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% if filename=='Call Sample' %}	
+            <h4>Drag from right and drop to left to Configure</h4>
+            <br><br>
+            <div class="col-md-8" style="max-height: 600px; overflow-y: auto;">	
+                <div class="form-row">
+                   <div class="form-group col-md-4"><label>Customer Id</label></div>
+                   <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="CS1"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4"><label>Sample Type</label></div>
+                    <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="CS2"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4"><label>Derived Call Id</label></div>
+                     <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="CS3"></div>
+                </div>
+                <div class="form-row">
+                   <div class="form-group col-md-4"><label>Date Period</label></div>
+                   <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="CS4"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4"><label>Territory Id</label></div>
+                    <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="CS5"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4"><label>Sample Quantity</label></div>
+                     <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="CS6"></div>
+                </div>
+                <div class="form-row">
+                     <span id="alert_message"></span>
+                </div>
+                <div class="form-row">
+                    <button class='button' id="process_inputCS">Save</button>
+                </div>
+            </div>
+
+
+     	    <div class="col-md-3 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" style="max-height: 500px; overflow-y: auto;">
+	       	    {% for col in columns %}
+                <div id='list{{col}}' class="list" draggable="true" ondragstart="drag(event)">
+                    <h5 class="list-title">{{col}}</h5>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% if filename=='Affiliation' %}	
+            <h4>Drag from right and drop to left to Configure</h4>
+            <br><br>
+            <div class="col-md-8" style="max-height: 600px; overflow-y: auto;">	
+                <div class="form-row">
+                   <div class="form-group col-md-4"><label>Parent Account Id</label></div>
+                   <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="AFF1"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4"><label>Child Account Id</label></div>
+                    <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="AFF2"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4"><label>Customer Id</label></div>
+                     <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="AFF3"></div>
+                </div>
+                <div class="form-row">
+                   <div class="form-group col-md-4"><label>Affilaition Type</label></div>
+                   <div class="form-group col-md-4 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" id="AFF4"></div>
+                </div>
+                <div class="form-row">
+                     <span id="alert_message"></span>
+                </div>
+                <div class="form-row">
+                    <button class='button' id="process_inputAFF">Save</button>
+                </div>
+            </div>
+            <div class="col-md-3 drop" ondragover="allowDrop(event)" ondrop="drop(event,this)" style="max-height: 500px; overflow-y: auto;">
+	       	    {% for col in columns %}
+                <div id='list{{col}}' class="list" draggable="true" ondragstart="drag(event)">
+                    <h5 class="list-title">{{col}}</h5>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}            
+        </div>
+	</div>
+</div>
+
+<div id="popup3" class="overlay">
+	<div class="popup">
+		<h2>Select the file type</h2>
+		 <div class="box">
+	        <a class="button" href="/dataupload/download_call" id="call_download">Call</a>
+	        <a class="button" href="/dataupload/download_callsample" id="call_sample_download">Call Sample</a>
+	        <a class="button" href="/dataupload/download_affiliation" id="affiliation_download">Affiliation</a>
+        </div>
+
+		<a class="close" id="contentid1" href="#">&times;</a>
+		<br>
+    
+
+	</div>
+</div>
+
+</body>
+</html>
+{% endblock content %}
