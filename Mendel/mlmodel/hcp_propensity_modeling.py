@@ -261,12 +261,12 @@ logm_2.fit().summary()
 
 
 #droping 'value_perception_strong'
-X_train_rfe_cv = X_train_rfe_cv.drop('value_perception_strong', axis = 1)
+#X_train_rfe_cv = X_train_rfe_cv.drop('value_perception_strong', axis = 1)
 
 #model 3
 logm_3 = sm.GLM(y_train,X_train_rfe_cv, family = sm.families.Binomial())
 logm_3.fit().summary()
-
+print(X_train_rfe_cv.head())
 #droping 'clinical_mindset_skeptical'
 #X_train_rfe_cv = X_train_rfe_cv.drop('clinical_mindset_skeptical', axis = 1)
 
@@ -275,8 +275,7 @@ logm_4 = sm.GLM(y_train,X_train_rfe_cv, family = sm.families.Binomial())
 logm_4.fit().summary()
 
 #droping 'pal_trialist'
-X_train_rfe_cv = X_train_rfe_cv.drop('pal_trialist', axis = 1)
-
+#X_train_rfe_cv = X_train_rfe_cv.drop('pal_trialist', axis = 1)
 #model 5
 
 logm_5 = sm.GLM(y_train,X_train_rfe_cv, family = sm.families.Binomial())
@@ -298,14 +297,14 @@ logm_7.fit().summary()
 
 
 #droping 'clinical_mindset_pro-prp'
-X_train_rfe_cv = X_train_rfe_cv.drop('clinical_mindset_pro-prp', axis = 1)
+#X_train_rfe_cv = X_train_rfe_cv.drop('clinical_mindset_pro-prp', axis = 1)
 #model 8
 logm_8 = sm.GLM(y_train,X_train_rfe_cv, family = sm.families.Binomial())
 logm_8.fit().summary()
 
 
 #droping 'patients_treated_with_competitive_drug'
-X_train_rfe_cv = X_train_rfe_cv.drop('patients_treated_with_competitive_drug', axis = 1)
+#X_train_rfe_cv = X_train_rfe_cv.drop('patients_treated_with_competitive_drug', axis = 1)
 #model 9
 final_model = sm.GLM(y_train,X_train_rfe_cv, family = sm.families.Binomial())
 final_model.fit().summary()
@@ -321,11 +320,9 @@ X_train_rfe_cv = X_train_rfe_cv.drop('const', axis = 1)
 logsk.fit(X_train_rfe_cv, y_train)
 
 X_test_rfe_cv = X_test[col_rfe_cv]
-X_test_rfe_cv = X_test_rfe_cv.drop(["competitive_situation_noethics","patients_treated_with_competitive_drug",
-                                    "clinical_mindset_pro-prp","injection_potential_goldmine",
-                                    "account_relation_weak","pal_trialist",
-                                    
-                                    "value_perception_strong"], axis = 1)
+X_test_rfe_cv = X_test_rfe_cv.drop(["competitive_situation_noethics",
+                                    "injection_potential_goldmine",
+                                    "account_relation_weak"], axis = 1)
 
 # Predicted probabilities
 y_pred = logsk.predict_proba(X_test_rfe_cv)
@@ -482,11 +479,9 @@ auc = 0.7261538461538461 #getting from the auc curve
 #-----------------------------------------------------------------------------------------------
 
 score_rfe_cv = score_final_df[col_rfe_cv]
-score_rfe_cv = score_rfe_cv.drop(["competitive_situation_noethics","patients_treated_with_competitive_drug",
-                                    "clinical_mindset_pro-prp","injection_potential_goldmine",
-                                    "account_relation_weak","pal_trialist",
-                                 
-                                    "value_perception_strong"], axis = 1)
+score_rfe_cv = score_rfe_cv.drop(["competitive_situation_noethics",
+                                   "injection_potential_goldmine",
+                                    "account_relation_weak"], axis = 1)
 # Predicted probabilities
 response_score = logsk.predict_proba(score_rfe_cv)
 #print(response_score)
